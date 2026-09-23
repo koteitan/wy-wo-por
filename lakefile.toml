@@ -1,5 +1,5 @@
 name = "WYWoPor"
-version = "0.1.1"
+version = "0.1.2"
 defaultTargets = ["Por", "OmegaY"]
 
 [leanOptions]
@@ -19,3 +19,4 @@ name = "ZeroY"
 
 [[lean_lib]]
 name = "OmegaY"
+roots = ["OmegaY", "OmegaY.Official"]
