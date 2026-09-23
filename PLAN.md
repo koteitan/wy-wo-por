@@ -1,11 +1,11 @@
 # PLAN — wy-wo-por
 
 - 公式の展開の定義で ω-Y の整礎性を証明する（branch `feature/official-expansion`）
-  - 🤖 偽の仮定 `LegBelowTop`、`StartLeg`、`LegRight` を使う道筋を、脚が `c_r` より左の場合を別に扱う形に直す（`wellFounded_of_chains`、`startLeg_startJump`、`legLookup_left`、`lowerLegGe_of_legBelowTop`、`legRight_of_legBelowTop`）
   - `ControlProof.wellFounded_of_block_keys` の残りの 2 つの仮定を証明する
     - 出力の山の再構成 `ReconstructionHolds`（`Recon.reconstructionHolds_of_rowLaw_chain`）
-      - 行の法則：`RowLaw.JumpLawHolds` → `LowerPairsHolds`（`JumpLawLower*.lean`）
+      - 行の法則：`RowLaw.JumpLawHolds` → `LowerRowsCopy`、`LowerRowsBoundary`、`LowerPairsLeft`（`jumpLawHolds_of_lowerCases_left`）
         - 🤖 `LowerRowsCopy`（脚が同じブロックの写し）と `LowerRowsBoundary`（脚が境目の列）
+        - 🤖 `LowerPairsLeft`（脚が `c_r` より左の組の jump の法則、`JumpLawLowerLeft.lean`）
       - 親の鎖 `Recon.ChainHolds`
         - 🤖 `LowerParentBelowHolds`：`caseLower` に脚が `ℓ < c_r` の場合（親の列 `q = ℓ`）を足し、`Profile7` の 7 つを証明する（`ParentBelowLower*.lean`、`LegRight` は偽）
         - `CrossChainHolds`（`CutPredHolds` は証明済み）
@@ -13,6 +13,7 @@
           - 🤖 `SeamLastPosHolds`、`InnerHolds`（`CrossLexFor IsUpper` の残り）
     - `KeyLeRest`：鎖の対応の命題に帰着した（`ChainCorr.Inner.wellFounded_of_local`）
       - 🤖 道筋を作り直す：`StartCopy`、`StepInner`、`CopyOrder`、MA、`NonCutOrder`、`CutBetween` は値の大きい列で偽（[notes/05-large-value-audit.md](notes/05-large-value-audit.md)）。弱い形 `StepInnerSkip`、`StartCopySkip`（失敗 0）の上に組み直す
+      - 🤖 元の山の事実 `LiftLegRight` と、`LegRowMatchInner`（脚が `c_r` より左の場合と `StartJump` の残り、`ChainCorrLegLeft*.lean`）
       - 🤖 写した列の形の元になる、元の山の事実 MA と MH（MD は証明済み、`CopyShape*.lean`）
       - `StepInner` の残り
         - 🤖 `LegGapTop`、`LegOriginReach`（`LegLookup` の残り、`StepInnerLookup*.lean`）
