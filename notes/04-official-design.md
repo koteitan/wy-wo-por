@@ -267,6 +267,7 @@ def ClassificationHolds : Prop :=
   1. `Dimension.BlockReconstruction`：組み立てた図が出力の正準の山に等しい（項目 1 の強い形）。
   2. `Control.ControlDominates`：入力の山だけについての命題。末列の一番上より下の節点の脚の原子の鍵は、制御の鍵より小さい。**証明済み**（`Proofs/ControlDominates.lean` の `controlDominates`）。脚の原子の鍵は、列を上るにつれて狭義に増える（`leg_lt_above`）。
   3. `Control.KeyLeRest`：写した列の各節点の出力の脚の原子の鍵は、写しの元の脚の原子の鍵を写したもの以下である（ブロックの境目では 1 つ前のブロックの量で写す）。
+- **3（`KeyLeRest`）.** [OmegaY/Official/Classification/Proofs/](../OmegaY/Official/Classification/Proofs/) で、ずらす量がいつも $`w \cdot i`$ であることを示し（`keyLeRest_of_shift`）、ブロック 0（`keyLe_block0`）と、元の鍵がすべて $`\top`$ の場合（`keyLe_allTop`）を証明した。残りは 7 つの領域の補題に帰着した（`keyLeRest_of_regions`）。上の部分、帯の段、根の行の写し（$`b = 0`$ と、すき間の段 $`b = 1`$）のそれぞれで、境目の列 $`x = x_0`$ と中の列 $`x \lt x_0`$ に分けたものである。数値の試験では、約 720 万個の節点で失敗は 0 件だった。7 つはどれも、写した列の下の部分で、尺度の根の鎖が元の山の鎖とどう対応するかにかかっている。
 - **1 の再構成（`BlockReconstruction`）.** [OmegaY/Official/Recon/](../OmegaY/Official/Recon/) で、新しい列についての 2 つの主張に帰着した（`Recon.reconstructionHolds_of_rowLaw_chain`）。行の法則 `RowLawHolds`（新しい列で上の節点の行が `B(下の行, 親の行)`）と、親の鎖 `ChainHolds`（`u⁺` の格納された親が、`Q u` から格納された親をたどって届き、途中の節点の値が `v(u⁺)` 以上）である。新しい列の底の節点は証明した（`bottomHolds`）。2 つの主張は、474 個の fixture と、JS の標本の新しい節点約 220 万個で反例が無い。
 
 - **仮定の誤り.** 上の `ClassificationHolds` は偽である。`expand [] n = .ok []` で、長さの検査 $`0 + 1 = 0`$ が偽になる（`Reconstruction.not_classificationHolds`）。`Step` は $`s \ne []`$ を要求するので、空でない列に限った `ClassificationHoldsNE` で足りる（`wellFounded_of_classificationNE`）。さらにそれを、次数と原子の分類の 2 つ（`DegreeAndAtomsHold`）に分けた（`wellFounded_of_parts`）。
