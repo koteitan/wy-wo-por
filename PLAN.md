@@ -16,6 +16,6 @@
       - 🤖 写した列の形の元になる、元の山の事実 MA と MH（MD は証明済み、`CopyShape*.lean`）
       - `StepInner` の残り
         - 🤖 `LegGapTop`、`LegOriginReach`（`LegLookup` の残り、`StepInnerLookup*.lean`）
-        - 🤖 `CleanNext`、`CleanLookup`、`CleanParent`
+        - 🤖 `CleanParent`、`CleanLookup` の残り `ViaRoot`、`LookupInner`、`LookupRoot`（`StepInnerClean*.lean`、`CleanNext` は証明済み）
       - 🤖 `StartCopy`、`StartRoot` の残り `BoundaryStepLower`、`BoundaryCutChain`、`PaLookup`、`X0Reach`、`GapTop`（`StartRootParts*.lean`）
       - 🤖 すき間の 2 つの領域の残り `CutRunLow`、`CutRunHigh`、`CutOriginReach`、`CutJumpTop`、`CutBump`、`CutLegLookup`（`CutParts*.lean`）
