@@ -9,7 +9,7 @@
 - 二つの違いは、写した区画のすき間を埋める規則（magma）と、どの節点を持ち上げるかの規則である。Phyrion 氏の証明の不変量のうち、写した辺の鍵の上界が公式の ω-Y では破れる（[notes/01-feasibility.md](notes/01-feasibility.md)）。
 - 公式の展開規則の書き起こしと、公式のプログラムとの差分試験は [notes/03-official-rule.md](notes/03-official-rule.md) にある。自前の実装は [reference/official/](reference/official/) にある。
 - 公式の展開の Lean の定義は [OmegaY/Official/Build.lean](OmegaY/Official/Build.lean) の `OmegaY.Official.expand` である。公式のプログラムの出力 474 個との照合は [OmegaY/Official/Check.lean](OmegaY/Official/Check.lean) にある。
-- 証明の設計は [notes/04-official-design.md](notes/04-official-design.md) にある。Phyrion 氏の反映の定理はそのまま使い、表現の原子を「節点ごとの脚の原子」に替える。この原子の系で、反映に要る分類が試したすべての展開で成り立った（[reference/official/reserve.cjs](reference/official/reserve.cjs)）。分類がいつも成り立つことは、まだ証明していない。
+- 証明の設計は [notes/04-official-design.md](notes/04-official-design.md) にある。Phyrion 氏の反映の定理はそのまま使い、表現の原子を「節点ごとの脚の原子」に替える。この原子の系で、反映に要る分類が試したすべての展開で成り立った（[reference/official/reserve.cjs](reference/official/reserve.cjs)）。Lean でも、原子の系と分類の判定を [OmegaY/Official/Reserve.lean](OmegaY/Official/Reserve.lean) で定義し、474 個の展開で判定が真になることを [OmegaY/Official/ReserveCheck.lean](OmegaY/Official/ReserveCheck.lean) で確かめた。分類がいつも成り立つことは、まだ証明していない。
 
 ## 状態
 
