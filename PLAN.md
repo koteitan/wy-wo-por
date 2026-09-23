@@ -13,7 +13,7 @@
           - 🤖 `CrossLexPos IsPlain`、`CrossLexPos IsClean`（ブロック `i ≥ 1`）
           - 🤖 `SeamLastPosHolds`、`InnerHolds`（`CrossLexFor IsUpper` の残り）
     - `KeyLeRest`：鎖の対応の命題に帰着した（`ChainCorr.Inner.wellFounded_of_local`）
-      - 道筋を作り直す：`StartCopy`、`StepInner`、`CopyOrder`、MA、`NonCutOrder`、`CutBetween` は値の大きい列で偽（[notes/05-large-value-audit.md](notes/05-large-value-audit.md)）。弱い形 `StepInnerSkip`、`StartCopySkip`（失敗 0）の上に組み直す
+      - 🤖 道筋を作り直す：`StartCopy`、`StepInner`、`CopyOrder`、MA、`NonCutOrder`、`CutBetween` は値の大きい列で偽（[notes/05-large-value-audit.md](notes/05-large-value-audit.md)）。弱い形 `StepInnerSkip`、`StartCopySkip`（失敗 0）の上に組み直す
       - 🤖 写した列の形の元になる、元の山の事実 MA と MH（MD は証明済み、`CopyShape*.lean`）
       - `StepInner` の残り
         - 🤖 `LegGapTop`、`LegOriginReach`（`LegLookup` の残り、`StepInnerLookup*.lean`）
