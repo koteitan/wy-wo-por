@@ -7,7 +7,7 @@
         - 🤖 `RowLaw.JumpLawHolds`：`row u⁺ = bump (row u) e` なら、親の行について `jump (row u) (row π(u⁺)) = e`
       - 親の鎖 `Recon.ChainHolds`（`Recon.chainHolds_of_split` で 2 つに分けた）
         - `ParentBelowHolds`（上の部分と、bump の指数が 0 のときは証明済み。`ParentBelow.parentBelowHolds_of_lower`）
-          - `LowerParentBelowHolds`：`u` が τ より下で、`row u⁺ = bump (row u) e`（`e ≥ 1`）のとき、親の列は `B_{e+1}(row u)` の中で `row u` より上に節点を持たない
+          - 🤖 `LowerParentBelowHolds`：`u` が τ より下で、`row u⁺ = bump (row u) e`（`e ≥ 1`）のとき、親の列は `B_{e+1}(row u)` の中で `row u` より上に節点を持たない
         - 🤖 `CrossChainHolds`：候補 `Q u` が `p` の列にないとき、`Q u` から格納された親をたどって `p` の直前の節点 `c` に届き、`v(u) ≤ v(c)`
     - `KeyLeRest`：7 つの領域の補題に帰着した（`KeyRegions.keyLeRest_of_regions`）
       - すき間の写しでない 5 つの領域は、鎖の対応の 5 つの命題に帰着した（`ChainCorrRegions.wellFounded_of_chains`）
