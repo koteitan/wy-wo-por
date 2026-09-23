@@ -7,5 +7,4 @@
       - 🤖 親の鎖 `Recon.ChainHolds`：`π(u⁺)` は `Q u` から格納された親をたどって届き、途中の値は `v(u⁺)` 以上
     - `KeyLeRest`：7 つの領域の補題に帰着した（`KeyRegions.keyLeRest_of_regions`）
       - 🤖 写した列の下の部分（行 < τ）で、尺度の根の鎖と元の山の鎖の対応の理論を作る（7 つの領域すべての土台）
-      - 🤖 正準の山で、辺の父は「その列で、上の節点の行より真に下の最も高い節点」であることを証明する
       - 7 つの領域の補題 `RegionUpper`、`RegionPlainBoundary`、`RegionPlainInner`、`RegionCleanBoundary`、`RegionCleanInner`、`RegionCutBoundary`、`RegionCutInner` を証明する

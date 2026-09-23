@@ -9,6 +9,7 @@ import OmegaY.Official.Classification.Bridge
 import OmegaY.Official.Classification.Proofs.ControlDominates
 import OmegaY.Official.Recon.FirstEmit
 import OmegaY.Official.Classification.Proofs.KeyRegions
+import OmegaY.Official.Classification.Proofs.ChainsCanonParent
 
 /-! The official omega-Y expansion (notes/03-official-rule.md): the executable
 definition `OmegaY.Official.expand` and its fixtures against the official
