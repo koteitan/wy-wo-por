@@ -14,7 +14,7 @@
 - 展開の規則に依るのは、「新しい山の原子が、古い山の原子から 3 つの型のどれかで得られる」という分類だけである。Phyrion 氏は、原子として山の本物の辺だけを使った。公式の ω-Y では、この分類が 39090 回の標準形の展開のうち 2032 回で破れる（§2）。
 - **新しい設計（§3）.** 原子を「節点ごとの脚の原子」に替える。列 $`c \ge 1`$ の節点 $`u`$ ごとに、$`u`$ の左の脚の列 $`\ell(u)`$ と $`c`$ の間に、$`u`$ から仮に辺を出したときの鍵をつけた原子をひとつ置く。制御（反映の強さを決める原子）は、末列の一番上の節点の脚の原子にする。
 - **数値の結果（§4）.** この原子の系で、分類は試したすべての展開で成り立った。標準形 39090 回、合法な列 54498 回（重複を含む）、$`n = 4, 5`$ の 20102 回、weak の展開 46290 回で、失敗は 0 回である。脚の原子のどれかの種類を外すと、分類は破れる。
-- **Lean（§5）.** 原子の系と分類の判定を定義し、474 個の展開で判定が真になることを確かめた。さらに、「分類がすべての展開で成り立つ」を仮定にして、公式の展開の整礎性を証明した（`OmegaY.Official.Descent.wellFounded_of_classification`、`sorry` 無し）。
+- **Lean（§5）.** 原子の系と分類の判定を定義し、474 個の展開で判定が真になることを確かめた。さらに、分類を仮定にして公式の展開の整礎性を証明した（`sorry` 無し）。ただし最初の仮定 `Descent.ClassificationHolds` は空の列のせいで偽だった（`not_classificationHolds`）ので、空でない列に限った `ClassificationHoldsNE` と、それを次数と原子の分類に分けた `DegreeAndAtomsHold` に直した（`Reconstruction.wellFounded_of_parts`、§6.1）。
 - **未解決（§6）.** 分類がすべての展開で成り立つことは、証明していない。これが残る組合せの補題である。
 
 ## 1. Phyrion 氏の証明の枠組み
@@ -263,6 +263,9 @@ def ClassificationHolds : Prop :=
 4. **分類.** $`M(s[n])`$ の脚の原子のすべてが、$`\mathcal E_D(M(s))`$ と制御 $`a(t)`$ について §1.2 の分類（基、予備、継ぎ目のどれか）を満たす。
 
 ### 6.1 進み具合（2026-09-23）
+
+- **仮定の誤り.** 上の `ClassificationHolds` は偽である。`expand [] n = .ok []` で、長さの検査 $`0 + 1 = 0`$ が偽になる（`Reconstruction.not_classificationHolds`）。`Step` は $`s \ne []`$ を要求するので、空でない列に限った `ClassificationHoldsNE` で足りる（`wellFounded_of_classificationNE`）。さらにそれを、次数と原子の分類の 2 つ（`DegreeAndAtomsHold`）に分けた（`wellFounded_of_parts`）。
+- **1 と 3（出力の山、出力の長さ）.** [OmegaY/Official/Reconstruction.lean](../OmegaY/Official/Reconstruction.lean)。出力の長さは証明済み（`expand_length_delete`、`expand_length_splice`）。出力の山が作れることも証明済み（`expand_build_ok`）。組み立てた図が出力の正準の山に等しいこと（`ReconstructionHolds`）は、削除の展開と、$`x_0`$ より左の列でだけ証明した（`expand_build_eq_delete`、`expand_build_prefix`）。$`n \ge 1`$ の $`x_0`$ から右の列が残る。
 
 - **2（次元の保存）.** [OmegaY/Official/Dimension.lean](../OmegaY/Official/Dimension.lean) で証明した。出力の図の行はどれも、入力の山の行（`official` をかけたもの）、末列の一番上の行 τ から作った区画の slot（`stored` をかけたもの）、または 0 の行である。slot の次数は、τ の次数と level の小さいほうの上界（どちらも $`D`$ 以下）を超えない。
   - 出力の図の次数：`expandDiagram_degree`（仮定なし）。
