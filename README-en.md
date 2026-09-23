@@ -13,4 +13,4 @@ This repository aims to prove in Lean 4 that expansion in the official ω-Y sequ
 
 ## Status
 
-Work in progress. Termination of the official ω-Y is not yet a theorem of this repository. What is proved is well-foundedness under two open lemmas: the reconstruction of the output mountain (`ReconstructionHolds`) and the classification of the leg atoms. The classification is reduced further to two statements (`ControlDominates`, `KeyLeRest`), so three open statements remain (`Classification.Bridge.wellFounded_of_block`). The work is done on the branch `feature/official-expansion`.
+Work in progress. Termination of the official ω-Y is not yet a theorem of this repository. What is proved is well-foundedness under two open lemmas: the reconstruction of the output mountain (`ReconstructionHolds`) and the classification of the leg atoms. The classification is reduced further to two statements (`ControlDominates`, `KeyLeRest`), and `ControlDominates` is proved, so two open statements remain (`BlockReconstruction`, `KeyLeRest`; `ControlProof.wellFounded_of_block_keys`). The work is done on the branch `feature/official-expansion`.

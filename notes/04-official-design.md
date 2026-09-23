@@ -265,7 +265,7 @@ def ClassificationHolds : Prop :=
 ### 6.1 進み具合（2026-09-23）
 - **4（脚の原子の分類）.** [OmegaY/Official/Classification/](../OmegaY/Official/Classification/) で、次の 3 つの未解決の命題に帰着した（`Bridge.wellFounded_of_block`）。上の部分で脚が根の列より左にある節点の場合は証明済み（`KeyUpper.keyOK_upper_low`）。
   1. `Dimension.BlockReconstruction`：組み立てた図が出力の正準の山に等しい（項目 1 の強い形）。
-  2. `Control.ControlDominates`：入力の山だけについての命題。末列の一番上より下の節点の脚の原子の鍵は、制御の鍵より小さい。標準形の標本と長さ 6・値 6 以下の合法な列で 302613 回確かめ、失敗は 0 回だった。
+  2. `Control.ControlDominates`：入力の山だけについての命題。末列の一番上より下の節点の脚の原子の鍵は、制御の鍵より小さい。**証明済み**（`Proofs/ControlDominates.lean` の `controlDominates`）。脚の原子の鍵は、列を上るにつれて狭義に増える（`leg_lt_above`）。
   3. `Control.KeyLeRest`：写した列の各節点の出力の脚の原子の鍵は、写しの元の脚の原子の鍵を写したもの以下である（ブロックの境目では 1 つ前のブロックの量で写す）。
 
 - **仮定の誤り.** 上の `ClassificationHolds` は偽である。`expand [] n = .ok []` で、長さの検査 $`0 + 1 = 0`$ が偽になる（`Reconstruction.not_classificationHolds`）。`Step` は $`s \ne []`$ を要求するので、空でない列に限った `ClassificationHoldsNE` で足りる（`wellFounded_of_classificationNE`）。さらにそれを、次数と原子の分類の 2 つ（`DegreeAndAtomsHold`）に分けた（`wellFounded_of_parts`）。

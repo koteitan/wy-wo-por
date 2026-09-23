@@ -6,6 +6,7 @@ import OmegaY.Official.Descent
 import OmegaY.Official.Dimension
 import OmegaY.Official.Reconstruction
 import OmegaY.Official.Classification.Bridge
+import OmegaY.Official.Classification.Proofs.ControlDominates
 
 /-! The official omega-Y expansion (notes/03-official-rule.md): the executable
 definition `OmegaY.Official.expand` and its fixtures against the official
