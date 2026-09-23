@@ -282,6 +282,7 @@ def ClassificationHolds : Prop :=
     - すき間の 2 つの領域は `CutRunLow`、`CutRunHigh`、`CutOriginReach`、`CutJumpTop`、`CutBump`、`CutLegLookup` に帰着した（`CutParts*.lean`）。
     - `CutPredHolds` は無条件で証明した（`Recon/CutPred*.lean`）。
     - `CrossLexFor IsPlain`、`IsClean` はブロック 0 で証明し、残りを `CrossLexPos` に帰着した（`Recon/CrossPlain*.lean`）。`CrossLexFor IsUpper` は `SeamLastPosHolds`、`InnerHolds` に帰着した（`Recon/CrossUpper*.lean`）。
+    - `LowerParentBelowHolds` は、ブロック 0 を無条件で証明し（`ColData.emitted0`）、ブロック `i ≥ 1` を写し方の 7 つの性質 `Profile7`（`NonCutOrder`、`CutBetween`、`CutOrder`、`CutLeg`、`Emitted`、`Lift`、`Boundary`）と `LegRight` に帰着した（`Recon/ParentBelowLower*.lean`）。ただし `LegRight` は偽で（`not_legRight_of_check`、`#guard` による計算）、脚が `ℓ < c_r` のときは親の列がずれない `q = ℓ` の場合を足す必要がある。
     - `LowerPairsHolds` は `LowerLegGe`（`LegBelowTop` から出していた）、`LowerRowsCopy`、`LowerRowsBoundary` に帰着した（`Recon/JumpLawLower*.lean`）。
   - すき間の 2 つの領域：鍵を辞書式に比べる厳密な版（`keyLe_keyAt_of_lex`）を作り、`StepCut`、`CutJump`、`CutStartCopy`、`CutStartRoot` に帰着した（`ChainCorrCut.lean`）。根の行の写しの脚が `cr` 以上であること（`cutLeg`）は証明した（`ChainCorrCutLeg.lean`）。
 
