@@ -17,10 +17,11 @@ iterated splice theorem (`OmegaY.Splice.iterated_reservoirs`) needs.
 * `classifiedB s n D` checks, for one expansion `s[n]` of the official rule, that
   every leg atom of the output is classified by the leg atoms of the input as a base,
   reserve or seam atom, with the leg atom of the top node of the last column as
-  control. It also checks the shapes the splice theorem needs: the root is left of
-  the last column, the output has `x₀ + n·w` columns, and every row of both mountains
-  has degree at most `D`. That every leg atom is well formed (`wellFormed`) is proved
-  for all valid mountains in `ReserveShape.lean`.
+  control. It also checks the shapes the splice theorem needs: the output mountain
+  can be built, it has `x₀ + n·w` columns, and every row of both mountains has
+  degree at most `D`. That every leg atom is well formed (`wellFormed`), that the
+  root is left of the last column and that the control is a leg atom are proved for
+  all valid mountains in `ReserveShape.lean`.
 
 Rows here are Phyrion's stored rows (`1 + ρ` for a finite official row `ρ`); the
 jump between two stored rows is the jump between the official rows.
@@ -179,16 +180,23 @@ structure Root where
   control : RawKey
   deriving Repr
 
-/-- The root data of an input mountain whose last column has a top above the bottom. -/
-def root? (M : Mountain) (D : Nat) : Option Root := do
-  let x0 := M.size - 1
-  let col ← M[x0]?
-  let i := col.size - 1
-  if i ≤ 1 then none
-  let t ← col[i]?
-  let r ← t.left
-  let a ← legAtom? M D ⟨x0, i⟩
-  if r.column = a.parent then some ⟨x0, r.column, a.key⟩ else none
+/-- The root data of an input mountain whose last column has a top above the bottom:
+the last column `x₀`, the root column (the column of the left endpoint of the top
+node) and the key of the leg atom of the top node (the control). -/
+def root? (M : Mountain) (D : Nat) : Option Root :=
+  match M[M.size - 1]? with
+  | none => none
+  | some col =>
+    if col.size - 1 ≤ 1 then none
+    else match col[col.size - 1]? with
+      | none => none
+      | some t =>
+        match t.left with
+        | none => none
+        | some r =>
+          match legAtom? M D ⟨M.size - 1, col.size - 1⟩ with
+          | none => none
+          | some a => if r.column = a.parent then some ⟨M.size - 1, r.column, a.key⟩ else none
 
 /-- The classification of one expansion `s[n]` at dimension `D`, for an atom system
 `E` and a choice of control `ctl`. It is `true` when the expansion fails (there is
@@ -211,9 +219,7 @@ def classifiedWith (E : Mountain → Nat → List RawAtom) (ctl : Mountain → N
         if n = 0 then decide (out.length + 1 = s.length) && EO.all (baseOK D Es)
         else
           let w := ρ.x0 - ρ.cr
-          decide (ρ.cr < ρ.x0) && decide (ρ.x0 + 1 = s.length) &&
           decide (out.length = ρ.x0 + n * w) &&
-          Es.any (fun a => a.parent == ρ.cr && a.child == ρ.x0 && a.key == ρ.control) &&
           EO.all fun e =>
             if e.child < ρ.x0 then baseOK D Es e
             else

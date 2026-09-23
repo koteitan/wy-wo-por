@@ -825,9 +825,7 @@ theorem classified_spec {s t : List Nat} {n D : Nat} {M : Mountain}
     (hcls : classifiedB s n D = true) :
     ∃ MO, Canonical.build t = .ok MO ∧ degreeAtMost MO D = true ∧
       ((t.length + 1 = s.length ∧ ∀ e ∈ atoms MO D, baseOK D (atoms M D) e = true) ∨
-        ∃ ρ : Root, ρ.cr < ρ.x0 ∧ ρ.x0 + 1 = s.length ∧
-          t.length = ρ.x0 + n * (ρ.x0 - ρ.cr) ∧
-          (∃ a ∈ atoms M D, a.parent = ρ.cr ∧ a.child = ρ.x0 ∧ a.key = ρ.control) ∧
+        ∃ ρ : Root, root? M D = some ρ ∧ t.length = ρ.x0 + n * (ρ.x0 - ρ.cr) ∧
           Classified D ρ.x0 ρ.cr (atoms M D) (atoms MO D) ρ.control) := by
   simp only [classifiedB, classifiedWith, hM, hrun] at hcls
   split at hcls
@@ -836,20 +834,23 @@ theorem classified_spec {s t : List Nat} {n D : Nat} {M : Mountain}
     simp only [Bool.and_eq_true] at hcls
     obtain ⟨⟨_, hdO⟩, hrest⟩ := hcls
     refine ⟨MO, hMO, hdO, ?_⟩
-    split at hrest
-    · simp only [Bool.and_eq_true, decide_eq_true_eq, List.all_eq_true] at hrest
-      exact Or.inl hrest
-    · rename_i ρ _
-      split at hrest
-      · simp only [Bool.and_eq_true, decide_eq_true_eq, List.all_eq_true] at hrest
+    cases hroot : root? M D with
+    | none =>
+        rw [hroot] at hrest
+        simp only [Bool.and_eq_true, decide_eq_true_eq, List.all_eq_true] at hrest
         exact Or.inl hrest
-      · simp only [Bool.and_eq_true, decide_eq_true_eq, List.all_eq_true, List.any_eq_true,
-          beq_iff_eq] at hrest
-        obtain ⟨⟨⟨⟨hcr, hx⟩, hlen⟩, a, ha, ⟨hap, hac⟩, hak⟩, hall⟩ := hrest
-        refine Or.inr ⟨ρ, hcr, hx, hlen, ⟨a, ha, hap, hac, hak⟩, ?_⟩
-        intro e he
-        have := hall e he
-        split at this <;> simp_all
+    | some ρ =>
+        rw [hroot] at hrest
+        simp only at hrest
+        split at hrest
+        · simp only [Bool.and_eq_true, decide_eq_true_eq, List.all_eq_true] at hrest
+          exact Or.inl hrest
+        · simp only [Bool.and_eq_true, decide_eq_true_eq, List.all_eq_true] at hrest
+          obtain ⟨hlen, hall⟩ := hrest
+          refine Or.inr ⟨ρ, rfl, hlen, ?_⟩
+          intro e he
+          have := hall e he
+          split at this <;> simp_all
 
 /-- One expansion: a representation of `s` gives a representation of `s[n]` whose
 labels are below the last label of `s`, provided the classification holds. -/
@@ -859,11 +860,14 @@ theorem descent {D : Nat} {s t : List Nat} {n : Nat} (hs : s ≠ [])
       old.f ⟨s.length - 1, by have := List.length_pos_iff.mpr hs; omega⟩ := by
   obtain ⟨M, hM⟩ := build_of_expand hrun
   obtain ⟨MO, hMO, _, hcase⟩ := classified_spec hM hrun hcls
-  have hwS := atoms_wellFormed (Canonical.build_valid_of_success hM) D
+  have hV := Canonical.build_valid_of_success hM
+  have hwS := atoms_wellFormed hV D
   have hwO := atoms_wellFormed (Canonical.build_valid_of_success hMO) D
-  rcases hcase with ⟨hlen, hbase⟩ | ⟨ρ, hcr, hx, hlen, hctl, hcl⟩
+  rcases hcase with ⟨hlen, hbase⟩ | ⟨ρ, hroot, hlen, hcl⟩
   · exact descent_delete hM hMO hlen hwS hwO hbase old
-  · exact descent_splice hM hMO ρ hcr hx hlen hctl hwS hwO hcl old
+  · obtain ⟨hx, hcr, hctl⟩ := root?_spec hV hroot
+    rw [Canonical.build_size hM] at hx
+    exact descent_splice hM hMO ρ hcr hx hlen hctl hwS hwO hcl old
 
 /-- The degrees of `M(s)` are at most `D`. -/
 def DegreeOK (s : List Nat) (D : Nat) : Prop :=
