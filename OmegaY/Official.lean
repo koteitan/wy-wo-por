@@ -9,6 +9,7 @@ import OmegaY.Official.Classification.Bridge
 import OmegaY.Official.Classification.Proofs.ControlDominates
 import OmegaY.Official.Recon.FirstEmit
 import OmegaY.Official.Recon.ChainSplit
+import OmegaY.Official.Recon.RowLawColumn
 import OmegaY.Official.Classification.Proofs.KeyRegions
 import OmegaY.Official.Classification.Proofs.ChainsCanonParent
 
