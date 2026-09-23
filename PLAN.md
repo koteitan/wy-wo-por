@@ -1,23 +1,21 @@
 # PLAN — wy-wo-por
 
 - 公式の展開の定義で ω-Y の整礎性を証明する（branch `feature/official-expansion`）
-  - `ControlProof.wellFounded_of_block_keys` の残りの 2 つの仮定を証明する（[notes/04-official-design.md §6.1](notes/04-official-design.md)）
+  - 🤖 開いている命題をすべて、値の大きい列（長さ 6 以下・値 12 以下、`LegBelowTop` が破れる 64 列、値の大きい無作為の列）で試し直す（[notes/04-official-design.md §6.1](notes/04-official-design.md)）
+  - 🤖 偽の仮定 `LegBelowTop`、`StartLeg`、`LegRight` を使う道筋を、脚が `c_r` より左の場合を別に扱う形に直す（`wellFounded_of_chains`、`startLeg_startJump`、`legLookup_left`、`lowerLegGe_of_legBelowTop`、`legRight_of_legBelowTop`）
+  - `ControlProof.wellFounded_of_block_keys` の残りの 2 つの仮定を証明する
     - 出力の山の再構成 `ReconstructionHolds`（`Recon.reconstructionHolds_of_rowLaw_chain`）
-      - 行の法則 `Recon.RowLawHolds`（bump の部分は証明済み）
-        - `RowLaw.JumpLawHolds`（ブロック 0、上の部分、継ぎ目は証明済み。`jumpLawHolds_of_lowerPairs`）
-          - 🤖 `LowerPairsHolds`：両方の節点がブロック `i ≥ 1` の列の下の部分にある組の jump の法則
-      - 親の鎖 `Recon.ChainHolds`（`Recon.chainHolds_of_split` で 2 つに分けた）
-        - `ParentBelowHolds`（上の部分と、bump の指数が 0 のときは証明済み。`ParentBelow.parentBelowHolds_of_lower`）
-          - 🤖 `LowerParentBelowHolds`：`u` が τ より下で、`row u⁺ = bump (row u) e`（`e ≥ 1`）のとき、親の列は `B_{e+1}(row u)` の中で `row u` より上に節点を持たない
-        - `CrossChainHolds`：値を使わない比較 `Lex` に言い換え、上の節点の出所の種類で分けた（`CrossKinds.crossChainHolds_of_three`）
-          - 🤖 `CutPredHolds`：cut の emit の直前は、いつも同じ出所の clean の emit で、`leftColumn` も同じ
-          - 🤖 `CrossLexFor IsPlain` と `CrossLexFor IsClean`
-          - 🤖 `CrossLexFor IsUpper`
-    - `KeyLeRest`：7 つの領域の補題を、鎖の対応の命題に帰着した（`ChainCorr.Inner.wellFounded_of_local`）
-      - 🤖 写した列の形 `CopyOrder`、`CopyEmitted`、`CopyFirst`（元の山の 3 つの事実 MA、MD、MH からの項目の帰納法）
-      - `StepInner` の残り（`ChainCorr.Inner.stepInner_of_rest`）
-        - 🤖 `LegLookup` と `BumpCopyLower`
+      - 行の法則：`RowLaw.JumpLawHolds` → `LowerPairsHolds`（`JumpLawLower*.lean`）
+        - 🤖 `LowerRowsCopy`（脚が同じブロックの写し）と `LowerRowsBoundary`（脚が境目の列）
+      - 親の鎖 `Recon.ChainHolds`
+        - 🤖 `LowerParentBelowHolds`（写し方の 7 つの性質 `Profile7` に帰着、検証中）
+        - `CrossChainHolds`（`CutPredHolds` は証明済み）
+          - 🤖 `CrossLexPos IsPlain`、`CrossLexPos IsClean`（ブロック `i ≥ 1`）
+          - 🤖 `SeamLastPosHolds`、`InnerHolds`（`CrossLexFor IsUpper` の残り）
+    - `KeyLeRest`：鎖の対応の命題に帰着した（`ChainCorr.Inner.wellFounded_of_local`）
+      - 🤖 写した列の形の元になる、元の山の事実 MA と MH（MD は証明済み、`CopyShape*.lean`）
+      - `StepInner` の残り
+        - 🤖 `LegGapTop`、`LegOriginReach`（`LegLookup` の残り、`StepInnerLookup*.lean`）
         - 🤖 `CleanNext`、`CleanLookup`、`CleanParent`
-      - 🤖 `StartLeg` と `StartJump` の残り `LegBelowTop`、`LegRowMatchRootLower`（`ChainCorr.LegJump.startLeg_startJump`）
-      - 🤖 `StartCopy` と `StartRoot` の残り `CutTop`、`BoundaryChain`、`OriginReach`
-      - 🤖 すき間の 2 つの領域の残り `StepCut`、`CutJump`、`CutStartCopy`、`CutStartRoot`（`ChainCorrCut.lean`）
+      - 🤖 `StartCopy`、`StartRoot` の残り `BoundaryStepLower`、`BoundaryCutChain`、`PaLookup`、`X0Reach`、`GapTop`（`StartRootParts*.lean`）
+      - 🤖 すき間の 2 つの領域の残り `CutRunLow`、`CutRunHigh`、`CutOriginReach`、`CutJumpTop`、`CutBump`、`CutLegLookup`（`CutParts*.lean`）

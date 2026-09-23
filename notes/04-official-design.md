@@ -274,6 +274,15 @@ def ClassificationHolds : Prop :=
   - `StepInner`：上の 3 つと、`LegLookup`、`BumpCopyLower`、`CleanNext`、`CleanLookup`、`CleanParent` に帰着した（`ChainCorr.Inner.stepInner_of_rest`）。
   - `StartLeg` と `StartJump`：上の形と、`LegBelowTop`（元の山だけの事実）、`LegRowMatchRootLower` に帰着した（`ChainCorr.LegJump.startLeg_startJump`）。jump が写しで増えないこと（`stepJumpLe`）は証明した。
   - `StartCopy` と `StartRoot`：上の形と、`CutTop`、`BoundaryChain`、`OriginReach` に帰着した（`startCopy_of_open`、`startRoot_of_parts`）。
+  - **偽の仮定（2026-09-23）.** `LegBelowTop`（元の山の列 `c`、`c_r < c ≤ x_0` の節点 `u` で `row u < row t` なら、脚の列は `c_r` 以上）は偽である。反例は $`s = (1,2,4,8,10,8)`$ で、`u = (4,3)` の脚は列 1 だが `c_r = 2`（`Proofs/LegBelowTopFalse.lean` の `not_legBelowTop`、`decide +kernel`）。値が 9 以下の列では破れないので、それまでの数値の試験では見つからなかった。長さ 6 以下・値 12 以下の 248831 列のうち 64 列で破れ、最短は $`(1,3,9,11,9)`$。同じ 64 列で、鎖の対応の仮定 `StartLeg` と、`LegRight`（`Recon/ParentBelowLowerProfile.lean`）も数値の上で破れる（どちらも 402 回）。一方、`KeyLeRest`、`StartJump`、`StartCopy`、`StartRoot`、`StepInner` は同じ入力で失敗 0 である。だから、これらを仮定に使う道筋（`ChainCorrRegions` の `wellFounded_of_chains`、`LegJump.startLeg_startJump`、`InnerLookup.legLookup_left`、`JumpLawLowerLeg`、`ParentBelowLowerLeg`）は、脚が `c_r` より左の場合を別に扱うように直す必要がある。境目の列が τ より下の `c_r` の行をすべて持つこと（`boundaryRootRows`）と `LegRowMatchRootLower` は証明した。
+  - 続きの帰着（どれも Lean で証明、数値の試験で失敗 0。ただし値の大きい列での試験はまだ）：
+    - 写した列の形 `CopyOrder`、`CopyEmitted`、`CopyFirst` は、元の山の事実 MA、MH から出る（`CopyShape*.lean`）。MD は証明した（`CopyShapeMD.lean` の `mdHolds`）。
+    - `BumpCopyLower` は `CopyFirst` から出る。`LegLookup` は `LegGapTop`、`LegOriginReach` などに帰着した（`StepInnerLookup*.lean`）。
+    - `StartCopy`、`StartRoot` は `BoundaryStepLower`、`BoundaryCutChain`、`PaLookup`、`X0Reach`、`GapTop` に帰着した（`StartRootParts*.lean`）。`BoundaryChain` はブロック 1 で証明した。
+    - すき間の 2 つの領域は `CutRunLow`、`CutRunHigh`、`CutOriginReach`、`CutJumpTop`、`CutBump`、`CutLegLookup` に帰着した（`CutParts*.lean`）。
+    - `CutPredHolds` は無条件で証明した（`Recon/CutPred*.lean`）。
+    - `CrossLexFor IsPlain`、`IsClean` はブロック 0 で証明し、残りを `CrossLexPos` に帰着した（`Recon/CrossPlain*.lean`）。`CrossLexFor IsUpper` は `SeamLastPosHolds`、`InnerHolds` に帰着した（`Recon/CrossUpper*.lean`）。
+    - `LowerPairsHolds` は `LowerLegGe`（`LegBelowTop` から出していた）、`LowerRowsCopy`、`LowerRowsBoundary` に帰着した（`Recon/JumpLawLower*.lean`）。
   - すき間の 2 つの領域：鍵を辞書式に比べる厳密な版（`keyLe_keyAt_of_lex`）を作り、`StepCut`、`CutJump`、`CutStartCopy`、`CutStartRoot` に帰着した（`ChainCorrCut.lean`）。根の行の写しの脚が `cr` 以上であること（`cutLeg`）は証明した（`ChainCorrCutLeg.lean`）。
 
 - **仮定の誤り.** 上の `ClassificationHolds` は偽である。`expand [] n = .ok []` で、長さの検査 $`0 + 1 = 0`$ が偽になる（`Reconstruction.not_classificationHolds`）。`Step` は $`s \ne []`$ を要求するので、空でない列に限った `ClassificationHoldsNE` で足りる（`wellFounded_of_classificationNE`）。さらにそれを、次数と原子の分類の 2 つ（`DegreeAndAtomsHold`）に分けた（`wellFounded_of_parts`）。
