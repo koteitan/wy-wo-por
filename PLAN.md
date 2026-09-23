@@ -8,7 +8,7 @@
       - 行の法則：`RowLaw.JumpLawHolds` → `LowerPairsHolds`（`JumpLawLower*.lean`）
         - 🤖 `LowerRowsCopy`（脚が同じブロックの写し）と `LowerRowsBoundary`（脚が境目の列）
       - 親の鎖 `Recon.ChainHolds`
-        - 🤖 `LowerParentBelowHolds`（写し方の 7 つの性質 `Profile7` に帰着、検証中）
+        - 🤖 `LowerParentBelowHolds`：`caseLower` に脚が `ℓ < c_r` の場合（親の列 `q = ℓ`）を足し、`Profile7` の 7 つを証明する（`ParentBelowLower*.lean`、`LegRight` は偽）
         - `CrossChainHolds`（`CutPredHolds` は証明済み）
           - 🤖 `CrossLexPos IsPlain`、`CrossLexPos IsClean`（ブロック `i ≥ 1`）
           - 🤖 `SeamLastPosHolds`、`InnerHolds`（`CrossLexFor IsUpper` の残り）
