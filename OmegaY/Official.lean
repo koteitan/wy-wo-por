@@ -12,6 +12,7 @@ import OmegaY.Official.Recon.ChainSplit
 import OmegaY.Official.Recon.RowLawColumn
 import OmegaY.Official.Classification.Proofs.KeyRegions
 import OmegaY.Official.Classification.Proofs.ChainsCanonParent
+import OmegaY.Official.Classification.Proofs.ChainCorrRegions
 
 /-! The official omega-Y expansion (notes/03-official-rule.md): the executable
 definition `OmegaY.Official.expand` and its fixtures against the official
