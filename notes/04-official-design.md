@@ -280,6 +280,7 @@ def ClassificationHolds : Prop :=
     - `BumpCopyLower` は `CopyFirst` から出る。`LegLookup` は `LegGapTop`、`LegOriginReach` などに帰着した（`StepInnerLookup*.lean`）。
     - `StartCopy`、`StartRoot` は `BoundaryStepLower`、`BoundaryCutChain`、`PaLookup`、`X0Reach`、`GapTop` に帰着した（`StartRootParts*.lean`）。`BoundaryChain` はブロック 1 で証明した。
     - すき間の 2 つの領域は `CutRunLow`、`CutRunHigh`、`CutOriginReach`、`CutJumpTop`、`CutBump`、`CutLegLookup` に帰着した（`CutParts*.lean`）。
+    - `CleanNext` は無条件で証明した。`CleanParent` は `ViaRoot`（値だけの命題、例が少ない）に、`CleanLookup` は `LookupInner`、`LookupRoot` に帰着した。境目の列が τ より下の `c_r` の行をすべて持つこと（`boundaryRows`）と、帯で `x_0` の頂上が `c_r` の頂上より高いこと（`liftLast`）も証明した（`StepInnerClean*.lean`）。
     - `CutPredHolds` は無条件で証明した（`Recon/CutPred*.lean`）。
     - `CrossLexFor IsPlain`、`IsClean` はブロック 0 で証明し、残りを `CrossLexPos` に帰着した（`Recon/CrossPlain*.lean`）。`CrossLexFor IsUpper` は `SeamLastPosHolds`、`InnerHolds` に帰着した（`Recon/CrossUpper*.lean`）。
     - `LowerParentBelowHolds` は、ブロック 0 を無条件で証明し（`ColData.emitted0`）、ブロック `i ≥ 1` を写し方の 7 つの性質 `Profile7`（`NonCutOrder`、`CutBetween`、`CutOrder`、`CutLeg`、`Emitted`、`Lift`、`Boundary`）と `LegRight` に帰着した（`Recon/ParentBelowLower*.lean`）。ただし `LegRight` は偽で（`not_legRight_of_check`、`#guard` による計算）、脚が `ℓ < c_r` のときは親の列がずれない `q = ℓ` の場合を足す必要がある。

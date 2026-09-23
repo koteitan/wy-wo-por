@@ -22,6 +22,11 @@ import OmegaY.Official.Classification.Proofs.ChainCorrCopyMono
 import OmegaY.Official.Classification.Proofs.ChainCorrStartRoot
 import OmegaY.Official.Classification.Proofs.ChainCorrStartLegJump
 import OmegaY.Official.Classification.Proofs.ChainCorrStepInner
+import OmegaY.Official.Classification.Proofs.StepInnerCleanLift
+import OmegaY.Official.Classification.Proofs.StepInnerCleanNext
+import OmegaY.Official.Classification.Proofs.StepInnerCleanParent
+import OmegaY.Official.Classification.Proofs.StepInnerCleanLookup
+import OmegaY.Official.Classification.Proofs.StepInnerCleanBoundary
 import OmegaY.Official.Classification.Proofs.CopyShape
 import OmegaY.Official.Classification.Proofs.CopyShapeChildren
 import OmegaY.Official.Classification.Proofs.CopyShapeItems
