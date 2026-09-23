@@ -263,6 +263,10 @@ def ClassificationHolds : Prop :=
 4. **分類.** $`M(s[n])`$ の脚の原子のすべてが、$`\mathcal E_D(M(s))`$ と制御 $`a(t)`$ について §1.2 の分類（基、予備、継ぎ目のどれか）を満たす。
 
 ### 6.1 進み具合（2026-09-23）
+- **4（脚の原子の分類）.** [OmegaY/Official/Classification/](../OmegaY/Official/Classification/) で、次の 3 つの未解決の命題に帰着した（`Bridge.wellFounded_of_block`）。上の部分で脚が根の列より左にある節点の場合は証明済み（`KeyUpper.keyOK_upper_low`）。
+  1. `Dimension.BlockReconstruction`：組み立てた図が出力の正準の山に等しい（項目 1 の強い形）。
+  2. `Control.ControlDominates`：入力の山だけについての命題。末列の一番上より下の節点の脚の原子の鍵は、制御の鍵より小さい。標準形の標本と長さ 6・値 6 以下の合法な列で 302613 回確かめ、失敗は 0 回だった。
+  3. `Control.KeyLeRest`：写した列の各節点の出力の脚の原子の鍵は、写しの元の脚の原子の鍵を写したもの以下である（ブロックの境目では 1 つ前のブロックの量で写す）。
 
 - **仮定の誤り.** 上の `ClassificationHolds` は偽である。`expand [] n = .ok []` で、長さの検査 $`0 + 1 = 0`$ が偽になる（`Reconstruction.not_classificationHolds`）。`Step` は $`s \ne []`$ を要求するので、空でない列に限った `ClassificationHoldsNE` で足りる（`wellFounded_of_classificationNE`）。さらにそれを、次数と原子の分類の 2 つ（`DegreeAndAtomsHold`）に分けた（`wellFounded_of_parts`）。
 - **1 と 3（出力の山、出力の長さ）.** [OmegaY/Official/Reconstruction.lean](../OmegaY/Official/Reconstruction.lean)。出力の長さは証明済み（`expand_length_delete`、`expand_length_splice`）。出力の山が作れることも証明済み（`expand_build_ok`）。組み立てた図が出力の正準の山に等しいこと（`ReconstructionHolds`）は、削除の展開と、$`x_0`$ より左の列でだけ証明した（`expand_build_eq_delete`、`expand_build_prefix`）。$`n \ge 1`$ の $`x_0`$ から右の列が残る。

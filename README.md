@@ -13,4 +13,4 @@
 
 ## 状態
 
-作業中である。公式の ω-Y の停止性は、まだこのリポジトリの定理ではない。証明されているのは、未解決の 2 つの補題（出力の山の再構成 `ReconstructionHolds`、脚の原子の分類）を仮定にした整礎性である。作業は branch `feature/official-expansion` で行う。
+作業中である。公式の ω-Y の停止性は、まだこのリポジトリの定理ではない。証明されているのは、未解決の 2 つの補題（出力の山の再構成 `ReconstructionHolds`、脚の原子の分類）を仮定にした整礎性である。分類は、さらに 2 つの命題（`ControlDominates`、`KeyLeRest`）に帰着した。つまり、残る未解決の命題は 3 つである（`Classification.Bridge.wellFounded_of_block`）。作業は branch `feature/official-expansion` で行う。
