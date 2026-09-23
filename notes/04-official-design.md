@@ -207,7 +207,9 @@ $`D = 1`$ とする。鍵は $`(\rho_1, \rho_0)`$ の順に書く。
 | `classifiedWith`、`classifiedB` | 1 回の展開 $`s[n]`$ の分類の判定 |
 | `edgeAtoms`、`classifiedEdgesB` | 比較のための、本物の辺だけの系 |
 
-`classifiedB s n D` は、分類のほかに、分類を反映の定理へ渡すのに要る形も確かめる。根が末列より左にあること、出力の長さが $`x_0 + nw`$ であること、すべての原子の形（$`p \lt c`$、鍵の長さ $`D+1`$、鍵の列が父以下）、両方の山の行の次数が $`D`$ 以下であることである。
+`classifiedB s n D` は、分類のほかに、分類を反映の定理へ渡すのに要る形も確かめる。根が末列より左にあること、出力の長さが $`x_0 + nw`$ であること、両方の山の行の次数が $`D`$ 以下であることである。
+
+原子の形（$`p \lt c \lt`$ 幅、鍵の長さ $`D+1`$、鍵の列が父以下）は判定に入れず、証明した。[OmegaY/Official/ReserveShape.lean](../OmegaY/Official/ReserveShape.lean) の `atoms_wellFormed` は、正しい形の山（`MountainValid`、正準の山はこれを満たす）のすべての脚の原子が `wellFormed` を満たすことを示す。
 
 [OmegaY/Official/ReserveCheck.lean](../OmegaY/Official/ReserveCheck.lean) で、`Check.lean` の 474 個の展開（公式のプログラムと照合したもの）について `#guard` で確かめた。
 
@@ -226,6 +228,7 @@ $`D = 1`$ とする。鍵は $`(\rho_1, \rho_0)`$ の順に書く。
 |---|---|
 | `Rep D s` | 表現：狭義増加のラベル $`f`$（$`\omega_1`$ 未満）で、$`\mathcal E_D(M(s))`$ の原子がすべて成り立つもの |
 | `rep_exists` | どの列にも表現がある（閉じた点、`initial_finite_graph`） |
+| `atoms_wellFormed`（`ReserveShape.lean`） | 正準の山の脚の原子は正しい形をしている |
 | `descent_delete` | 末項を消す展開の降下 |
 | `initial_state`、`block_covered`、`block_keys`、`block_class` | 判定の真から、`Splice.iterated_reservoirs` の 4 つの仮定を作る |
 | `descent_splice` | 区画を足す展開の降下 |
@@ -253,11 +256,10 @@ def ClassificationHolds : Prop :=
 
 1. **出力の山.** $`s[n]`$ の正準の山 $`M(s[n])`$ が作れる。
 2. **次元の保存.** $`M(s[n])`$ の行の次数はどれも $`D`$ 以下である（01-feasibility の I1）。
-3. **原子の形.** 両方の山の脚の原子は、$`p \lt c \lt`$ 幅、鍵の長さ $`D+1`$、鍵の列が $`p`$ 以下を満たす。
-4. **展開の形.** 末項が 1 か $`n = 0`$ なら、$`s[n]`$ は $`s`$ より 1 項短い。そうでなければ、根の列 $`c_r`$ は末列 $`x_0`$ より左にあり、$`s[n]`$ の長さは $`x_0 + nw`$ である。
-5. **分類.** $`M(s[n])`$ の脚の原子のすべてが、$`\mathcal E_D(M(s))`$ と制御 $`a(t)`$ について §1.2 の分類（基、予備、継ぎ目のどれか）を満たす。
+3. **展開の形.** 末項が 1 か $`n = 0`$ なら、$`s[n]`$ は $`s`$ より 1 項短い。そうでなければ、根の列 $`c_r`$ は末列 $`x_0`$ より左にあり、$`s[n]`$ の長さは $`x_0 + nw`$ である。
+4. **分類.** $`M(s[n])`$ の脚の原子のすべてが、$`\mathcal E_D(M(s))`$ と制御 $`a(t)`$ について §1.2 の分類（基、予備、継ぎ目のどれか）を満たす。
 
-3 は脚の原子の定義からすぐ出る見込みである。1、2、4 は公式の展開の規則についての性質で、weak の規則では Phyrion 氏が同じ種類の定理を証明している（`ActualCanonicalReconstruction`、`SupportedDimension`）。中心は 5 で、公式の展開の規則（03-official-rule §2）の場合分けに沿って示すことになる。Phyrion 氏の weak の証明で同じ役目を果たした部分は約 8 万行である。規模はそれに近いと見込む（推測）。
+原子の形は証明済みである（`atoms_wellFormed`）。1、2、3 は公式の展開の規則についての性質で、weak の規則では Phyrion 氏が同じ種類の定理を証明している（`ActualCanonicalReconstruction`、`SupportedDimension`）。中心は 4 で、公式の展開の規則（03-official-rule §2）の場合分けに沿って示すことになる。Phyrion 氏の weak の証明で同じ役目を果たした部分は約 8 万行である。規模はそれに近いと見込む（推測）。
 
 ## 7. 限界
 

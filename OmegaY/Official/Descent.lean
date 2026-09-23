@@ -1,4 +1,4 @@
-import OmegaY.Official.Reserve
+import OmegaY.Official.ReserveShape
 import OmegaY.Splice.IteratedReservoirs
 import OmegaY.Model
 import OmegaY.Canonical.Prefix
@@ -824,8 +824,6 @@ theorem classified_spec {s t : List Nat} {n D : Nat} {M : Mountain}
     (hM : Canonical.build s = .ok M) (hrun : Official.expand s n = .ok t)
     (hcls : classifiedB s n D = true) :
     ∃ MO, Canonical.build t = .ok MO ∧ degreeAtMost MO D = true ∧
-      (∀ a ∈ atoms M D, wellFormed D M.size a = true) ∧
-      (∀ a ∈ atoms MO D, wellFormed D MO.size a = true) ∧
       ((t.length + 1 = s.length ∧ ∀ e ∈ atoms MO D, baseOK D (atoms M D) e = true) ∨
         ∃ ρ : Root, ρ.cr < ρ.x0 ∧ ρ.x0 + 1 = s.length ∧
           t.length = ρ.x0 + n * (ρ.x0 - ρ.cr) ∧
@@ -835,9 +833,9 @@ theorem classified_spec {s t : List Nat} {n D : Nat} {M : Mountain}
   split at hcls
   · exact absurd hcls (by simp)
   · rename_i MO hMO
-    simp only [Bool.and_eq_true, List.all_eq_true] at hcls
-    obtain ⟨⟨⟨⟨_, hdO⟩, hwS⟩, hwO⟩, hrest⟩ := hcls
-    refine ⟨MO, hMO, hdO, hwS, hwO, ?_⟩
+    simp only [Bool.and_eq_true] at hcls
+    obtain ⟨⟨_, hdO⟩, hrest⟩ := hcls
+    refine ⟨MO, hMO, hdO, ?_⟩
     split at hrest
     · simp only [Bool.and_eq_true, decide_eq_true_eq, List.all_eq_true] at hrest
       exact Or.inl hrest
@@ -860,7 +858,9 @@ theorem descent {D : Nat} {s t : List Nat} {n : Nat} (hs : s ≠ [])
     ∃ new : Rep D t, ∀ i, new.f i <
       old.f ⟨s.length - 1, by have := List.length_pos_iff.mpr hs; omega⟩ := by
   obtain ⟨M, hM⟩ := build_of_expand hrun
-  obtain ⟨MO, hMO, _, hwS, hwO, hcase⟩ := classified_spec hM hrun hcls
+  obtain ⟨MO, hMO, _, hcase⟩ := classified_spec hM hrun hcls
+  have hwS := atoms_wellFormed (Canonical.build_valid_of_success hM) D
+  have hwO := atoms_wellFormed (Canonical.build_valid_of_success hMO) D
   rcases hcase with ⟨hlen, hbase⟩ | ⟨ρ, hcr, hx, hlen, hctl, hcl⟩
   · exact descent_delete hM hMO hlen hwS hwO hbase old
   · exact descent_splice hM hMO ρ hcr hx hlen hctl hwS hwO hcl old

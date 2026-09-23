@@ -18,8 +18,9 @@ iterated splice theorem (`OmegaY.Splice.iterated_reservoirs`) needs.
   every leg atom of the output is classified by the leg atoms of the input as a base,
   reserve or seam atom, with the leg atom of the top node of the last column as
   control. It also checks the shapes the splice theorem needs: the root is left of
-  the last column, the output has `x₀ + n·w` columns, every atom is well formed, and
-  every row of both mountains has degree at most `D`.
+  the last column, the output has `x₀ + n·w` columns, and every row of both mountains
+  has degree at most `D`. That every leg atom is well formed (`wellFormed`) is proved
+  for all valid mountains in `ReserveShape.lean`.
 
 Rows here are Phyrion's stored rows (`1 + ρ` for a finite official row `ρ`); the
 jump between two stored rows is the jump between the official rows.
@@ -202,7 +203,6 @@ def classifiedWith (E : Mountain → Nat → List RawAtom) (ctl : Mountain → N
       let Es := E M D
       let EO := E MO D
       degreeAtMost M D && degreeAtMost MO D &&
-      Es.all (wellFormed D M.size) && EO.all (wellFormed D MO.size) &&
       match ctl M D with
       | none =>
           -- the last entry is 1 (or the input is empty): deletion only
