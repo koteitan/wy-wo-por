@@ -3,6 +3,7 @@ import OmegaY.Official.Check
 import OmegaY.Official.Reserve
 import OmegaY.Official.ReserveCheck
 import OmegaY.Official.Descent
+import OmegaY.Official.Dimension
 
 /-! The official omega-Y expansion (notes/03-official-rule.md): the executable
 definition `OmegaY.Official.expand` and its fixtures against the official

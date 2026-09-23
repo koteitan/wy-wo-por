@@ -262,6 +262,13 @@ def ClassificationHolds : Prop :=
 3. **展開の長さ.** 末項が 1 か $`n = 0`$ なら、$`s[n]`$ は $`s`$ より 1 項短い。そうでなければ、$`s[n]`$ の長さは $`x_0 + nw`$ である。
 4. **分類.** $`M(s[n])`$ の脚の原子のすべてが、$`\mathcal E_D(M(s))`$ と制御 $`a(t)`$ について §1.2 の分類（基、予備、継ぎ目のどれか）を満たす。
 
+### 6.1 進み具合（2026-09-23）
+
+- **2（次元の保存）.** [OmegaY/Official/Dimension.lean](../OmegaY/Official/Dimension.lean) で証明した。出力の図の行はどれも、入力の山の行（`official` をかけたもの）、末列の一番上の行 τ から作った区画の slot（`stored` をかけたもの）、または 0 の行である。slot の次数は、τ の次数と level の小さいほうの上界（どちらも $`D`$ 以下）を超えない。
+  - 出力の図の次数：`expandDiagram_degree`（仮定なし）。
+  - 削除の展開の出力の山：`output_degree_delete`（仮定なし）。
+  - ブロックを足す展開の出力の山：`output_degree`。これは 1 の再構成（`BlockReconstruction`：組み立てた図が出力の正準の山に等しい）を仮定する。この仮定は、長さ 5 以下・値 0〜5 の全部の列と $`n \in \{1,2\}`$（18662 通り）で反例が無かった。
+
 原子の形、根が末列より左にあること、制御が脚の原子であることは証明済みである（`atoms_wellFormed`、`root?_spec`）。1、2、3 は公式の展開の規則についての性質で、weak の規則では Phyrion 氏が同じ種類の定理を証明している（`ActualCanonicalReconstruction`、`SupportedDimension`）。中心は 4 で、公式の展開の規則（03-official-rule §2）の場合分けに沿って示すことになる。Phyrion 氏の weak の証明で同じ役目を果たした部分は約 8 万行である。規模はそれに近いと見込む（推測）。
 
 ## 7. 限界
