@@ -9,5 +9,8 @@
         - 🤖 `ParentBelowHolds`：新しい列の実の節点 `u` の格納された親 `p` は `height p ≤ height u`
         - 🤖 `CrossChainHolds`：候補 `Q u` が `p` の列にないとき、`Q u` から格納された親をたどって `p` の直前の節点 `c` に届き、`v(u) ≤ v(c)`
     - `KeyLeRest`：7 つの領域の補題に帰着した（`KeyRegions.keyLeRest_of_regions`）
-      - 🤖 写した列の下の部分（行 < τ）で、尺度の根の鎖と元の山の鎖の対応の理論を作る（7 つの領域すべての土台）
-      - 7 つの領域の補題 `RegionUpper`、`RegionPlainBoundary`、`RegionPlainInner`、`RegionCleanBoundary`、`RegionCleanInner`、`RegionCutBoundary`、`RegionCutInner` を証明する
+      - すき間の写しでない 5 つの領域は、鎖の対応の 5 つの命題に帰着した（`ChainCorrRegions.wellFounded_of_chains`）
+        - 🤖 `StepInner`：元の山の 1 歩に、出力の鎖の歩みが対応する
+        - 🤖 `StartLeg` と `StartJump`：脚の列は `cr` 以上、出発の jump は元以下
+        - 🤖 `StartCopy` と `StartRoot`：出発の節点の対応（脚が `cr` より右のときと、`cr` のとき）
+      - 🤖 すき間の写しの 2 つの領域 `RegionCutBoundary`、`RegionCutInner` を証明する（鍵は辞書式でだけ小さいので、成分ごとの道具を厳密な版に広げる）
