@@ -18,9 +18,10 @@
 | `MAHolds`（MA）、`CopyOrder`、写しの行の式（Formula） | $`(1,3,6,13,15,13)[1]`$ | D、F、K |
 | `Profile7` の `NonCutOrder`、`CutBetween`（`NonCutOrder` は Lean で偽） | $`(1,3,6,13,15,13)[1]`$ | D、K |
 
+- 「Lean で偽」の意味：`LegBelowTop` の反証（`LegBelowTopFalse.lean`、コミット済み）はカーネルの評価だけで閉じている。`GapTop`（と `CutTop`、`StartCopy`）の反証 `StartRootPartsGapTopFalse.lean` と、`NonCutOrder` の反証 `ParentBelowLowerFixFalse.lean` は未追跡のファイルで、展開の事実を Bool の検査（`gCheck`、`nonCutCheck`）にまとめ、それが `true` であることを仮定する形（`gCheck = true → ¬ GapTop` など）である。検査は `#guard`（コンパイルした評価）で確かめていて、カーネルの証明ではない。
 - 上の表の後ろ 4 行の仮定は、長さ 5 以下・値 20 以下（A と E）と、長さ 6 以下・値 12 以下（A）では破れなかった（`Profile7` は E の約 1/4 だけ試した）。長さ 6・値 15 以下（F、$`n = 1`$）では、`StartCopy` は 10 回、`StepInner` は 3 回、MA と `CopyOrder` は $`(1,3,6,13,15,13)`$ の 1 列だけで破れた。破れる列はまれである。
 - 偽の仮定を使うコミット済みの定理は §4 に挙げた。`KeyLeRest` への道筋（`wellFounded_of_chains`、`wellFounded_of_local`、`wellFounded_of_all_chains`、`wellFounded_of_cut_*`）は、どれも `StartLeg`、`StartCopy`、`StepInner` のどれかを仮定するので、今の形では使えない。`KeyLeRest` 自身は成り立っている。
-- ほかのエージェントの作業中の帰着（未追跡のファイル）では、`CopyAsc`（$`(1,3,11,12,11)[1]`$）、`LegGapTopLow` と `GapKidRow`（$`(1,3,9,11,16,8)[1]`$。F の $`(1,3,8,10,15,8)[1]`$ でも破れることを個別に確かめた）、`PosChainImg`（$`(1,3,10,20,10)[1]`$）が破れた。`StepInner` と `StartCopy` を弱めた `StepInnerSkip`、`StartCopySkip`（`LegPartsSkip.lean`）は、どの標本でも失敗 0 だった。
+- ほかのエージェントの作業中の帰着（未追跡のファイル）では、`CopyAsc`（$`(1,3,11,12,11)[1]`$）、`LegGapTopLow` と `GapKidRow`（$`(1,3,9,11,16,8)[1]`$。F の $`(1,3,8,10,15,8)[1]`$ でも破れることを個別に確かめた）、`PosChainImg` の最初の形（像の種類が $`u^+`$ と同じことを求める形。$`(1,3,10,20,10)[1]`$）が破れた。`PosChainImg` は、この監査の終わりごろ（2026-09-24 04:54）に、像の種類が違ってもよい形に直された（`CrossPlainPos.lean`、`cross-plain-pos-img.cjs`）。直した形は $`(1,3,10,20,10)[n]`$（$`n = 1,2,3`$）で失敗 0 である。表の数は最初の形のものである。`StepInner` と `StartCopy` を弱めた `StepInnerSkip`、`StartCopySkip`（`LegPartsSkip.lean`）は、どの標本でも失敗 0 だった。
 
 ## 2. 標本
 
@@ -30,7 +31,7 @@
 |---|---|---:|---:|
 | A | 長さ 6 以下、値 12 以下の合法な列すべて | 248831 | 688652 |
 | B | A のうち `LegBelowTop` が破れる 64 列（[samples/legbelowtop-bad64.json](../reference/official/samples/legbelowtop-bad64.json)） | 64 | 192 |
-| C | 長さ 7 以下、値 10 以下。長さ 6 以下はすべて、長さ 7 は種を決めた無作為の 1/8 | 113149 | 324880 |
+| C | 長さ 7、値 10 以下の合法な列から、種を決めた無作為の 1/8（長さ 6 以下、値 10 以下の列は A に含まれるので C には入れない） | 113149 | 324880 |
 | D | 長さ 2〜8、値 20 以下の無作為の合法な列 | 30000 | 72098 |
 | E | 長さ 5 以下、値 20 以下で、最大の値が 13 以上の合法な列すべて | 139264 | 326636 |
 | F | 長さ 6、値 15 以下で、最大の値が 13 以上の列すべて。$`n = 1`$ だけ、ハーネスは `chain-corr`、`copy-shape`、`startcopy-root-parts`、`step-inner-lookup` だけ | 480654 | 480654 |
@@ -138,7 +139,7 @@
 | CutTop | 開 | startcopy-root-parts | 395 | - | 288 | 377 / **6** | - | 339 / **10** | 84 / **30** | (1,3,8,10,13,8)[1] X=8 u=3 |
 | BoundaryChain | 開 | startcopy-root-parts | 14.3M | 7812 | 5.7M | 3.1M | 13.2M | 6.6M | 3324 |  |
 | OriginReach | 開 | startcopy-root-parts | 7.1M | 9000 | 2.9M | 1.5M | 5.7M | 2.2M | 2175 |  |
-| LegLookup | 開 | step-inner | 8.0M | 2112 | 3.3M | 1.4M | 6.4M | - | 774 / **12** | (1,3,9,11,16,8)[1] X=8 v=3 plain(4,2) |
+| LegLookup | 開 | step-inner | 8.0M | 2112 | 3.3M | 1.4M | 6.4M | - | 774 / **12** | (1,3,9,11,16,8)[1] X=8 v=3 plain(4,2)。F の (1,3,8,10,15,8)[1] でも偽（個別に確かめた。F では step-inner を走らせていない） |
 | BumpCopyLower | 開 | step-inner | 3.1M | 1878 | 1.5M | 447k | 1.9M | - | 606 |  |
 | NextCopyPlain | 開 | step-inner | 3.1M | 1878 | 1.5M | 447k | 1.9M | - | 606 |  |
 | CleanNext | 開 | step-inner | 1.4M | 978 | 623k | 190k | 816k | - | 264 |  |
@@ -183,7 +184,7 @@
 
 | 命題 | Lean の状態 | ハーネス | A | B | C | D | E | F | K | 最短の反例 |
 |---|---|---|---|---|---|---|---|---|---|---|
-| CrossPlainPos: PosChainImg | 開（未追跡） | cross-plain-pos-img | 880k | 726 | 398k | 116k | 490k / **12** | - | 87 | (1,3,10,20,10)[1] X=6 u=3 |
+| CrossPlainPos: PosChainImg（最初の形。今は直されている、§1） | 開（未追跡） | cross-plain-pos-img | 880k | 726 | 398k | 116k | 490k / **12** | - | 87 | (1,3,10,20,10)[1] X=6 u=3 |
 | CrossPlainPos: PosLexAt | 開（未追跡） | cross-plain-pos-img | 880k | 726 | 398k | 116k | 490k | - | 87 |  |
 | CrossPlainPosColumn: BelowSrc | 開（未追跡） | cross-plain-pos-img | 3.9M | 2988 | 1.6M | 573k | 2.6M | - | 909 |  |
 | CrossPlainPosColumn: EmitBelow | 開（未追跡） | cross-plain-pos-img | 3.9M | 2988 | 1.6M | 573k | 2.6M | - | 909 |  |

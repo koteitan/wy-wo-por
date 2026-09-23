@@ -17,7 +17,7 @@
 // Input sets (every sequence starts with 1 and does not end with 1; n = 1, 2, 3):
 //   A  all legal sequences of length <= 6 with entries <= 12
 //   B  the 64 sequences of A that break LegBelowTop (samples/legbelowtop-bad64.json)
-//   C  legal, length <= 7, entries <= 10: all of length <= 6, a seeded 1/8 of length 7
+//   C  a seeded 1/8 of the legal sequences of length 7 with entries <= 10 (length <= 6 is in A)
 //   D  30000 seeded random legal sequences, length 2..8, entries <= 20
 //   E  all legal sequences of length <= 5 with entries <= 20 and largest entry >= 13
 //   F  all sequences of length 6 with entries <= 15 and largest entry >= 13, n = 1 only (run with
@@ -46,7 +46,7 @@ function gen(W) {
   const sets = {};
   sets.A = legal(6, 12);
   sets.B = JSON.parse(fs.readFileSync(path.join(H, 'samples/legbelowtop-bad64.json'), 'utf8'));
-  { const r = mulberry(7); sets.C = legal(7, 10).filter(s => s.length < 7 || r() < 1 / 8); }
+  { const r = mulberry(7); sets.C = legal(7, 10).filter(s => s.length === 7 && r() < 1 / 8); }
   { const r = mulberry(20260923), seen = new Set(), L = []; while (L.length < 30000) { const len = 2 + Math.floor(r() * 7), s = [1]; while (s.length < len) s.push(1 + Math.floor(r() * 20)); if (s[s.length - 1] === 1 || seen.has(s.join())) continue; seen.add(s.join()); L.push(s); } sets.D = L; }
   sets.E = legal(5, 20, s => Math.max(...s) >= 13);
   sets.K = JSON.parse(fs.readFileSync(path.join(H, 'samples/known-counterexamples.json'), 'utf8'));

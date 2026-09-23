@@ -1,7 +1,6 @@
 # PLAN — wy-wo-por
 
 - 公式の展開の定義で ω-Y の整礎性を証明する（branch `feature/official-expansion`）
-  - 🤖 開いている命題をすべて、値の大きい列（長さ 6 以下・値 12 以下、`LegBelowTop` が破れる 64 列、値の大きい無作為の列）で試し直す（[notes/04-official-design.md §6.1](notes/04-official-design.md)）
   - 🤖 偽の仮定 `LegBelowTop`、`StartLeg`、`LegRight` を使う道筋を、脚が `c_r` より左の場合を別に扱う形に直す（`wellFounded_of_chains`、`startLeg_startJump`、`legLookup_left`、`lowerLegGe_of_legBelowTop`、`legRight_of_legBelowTop`）
   - `ControlProof.wellFounded_of_block_keys` の残りの 2 つの仮定を証明する
     - 出力の山の再構成 `ReconstructionHolds`（`Recon.reconstructionHolds_of_rowLaw_chain`）
