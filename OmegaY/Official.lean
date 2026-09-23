@@ -2,8 +2,10 @@ import OmegaY.Official.Build
 import OmegaY.Official.Check
 import OmegaY.Official.Reserve
 import OmegaY.Official.ReserveCheck
+import OmegaY.Official.Descent
 
 /-! The official omega-Y expansion (notes/03-official-rule.md): the executable
 definition `OmegaY.Official.expand` and its fixtures against the official
 program; the leg atoms and the splice classification (notes/04-official-design.md)
-and their check on the same fixtures. -/
+and their check on the same fixtures; the well-foundedness of the official
+expansion under the classification hypothesis (`Descent.wellFounded_of_classification`). -/

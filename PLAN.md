@@ -1,7 +1,8 @@
 # PLAN — wy-wo-por
 
 - 公式の展開の定義で ω-Y の整礎性を証明する（branch `feature/official-expansion`）
-  - ✅ 脚の原子の系と分類の判定を Lean で定義し、474 個の展開で確かめる（[OmegaY/Official/Reserve.lean](OmegaY/Official/Reserve.lean)、[OmegaY/Official/ReserveCheck.lean](OmegaY/Official/ReserveCheck.lean)）
-  - 🤖 分類の補題を仮定にした整礎性の定理を Lean で示す
-  - 分類の補題を証明する（[notes/04-official-design.md §6](notes/04-official-design.md)）
-  - 次元の保存を公式の展開で証明する
+  - 🤖 分類の補題 `OmegaY.Official.Descent.ClassificationHolds` を証明する（[notes/04-official-design.md §6](notes/04-official-design.md)）
+    - 出力の山が作れること、展開の形（長さ、根の位置）
+    - 次元の保存（出力の行の次数 ≤ 入力の次数）
+    - 脚の原子の形
+    - 脚の原子の分類（基・予備・継ぎ目）を、公式の規則の場合分けに沿って示す

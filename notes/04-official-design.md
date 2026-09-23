@@ -14,7 +14,8 @@
 - 展開の規則に依るのは、「新しい山の原子が、古い山の原子から 3 つの型のどれかで得られる」という分類だけである。Phyrion 氏は、原子として山の本物の辺だけを使った。公式の ω-Y では、この分類が 39090 回の標準形の展開のうち 2032 回で破れる（§2）。
 - **新しい設計（§3）.** 原子を「節点ごとの脚の原子」に替える。列 $`c \ge 1`$ の節点 $`u`$ ごとに、$`u`$ の左の脚の列 $`\ell(u)`$ と $`c`$ の間に、$`u`$ から仮に辺を出したときの鍵をつけた原子をひとつ置く。制御（反映の強さを決める原子）は、末列の一番上の節点の脚の原子にする。
 - **数値の結果（§4）.** この原子の系で、分類は試したすべての展開で成り立った。標準形 39090 回、合法な列 54498 回（重複を含む）、$`n = 4, 5`$ の 20102 回、weak の展開 46290 回で、失敗は 0 回である。脚の原子のどれかの種類を外すと、分類は破れる。
-- **未解決（§6）.** 分類がすべての展開で成り立つことは、証明していない。これが残る組合せの補題である。Lean では、原子の系と分類の判定を定義し、474 個の展開で判定が真になることを確かめた（§5）。
+- **Lean（§5）.** 原子の系と分類の判定を定義し、474 個の展開で判定が真になることを確かめた。さらに、「分類がすべての展開で成り立つ」を仮定にして、公式の展開の整礎性を証明した（`OmegaY.Official.Descent.wellFounded_of_classification`、`sorry` 無し）。
+- **未解決（§6）.** 分類がすべての展開で成り立つことは、証明していない。これが残る組合せの補題である。
 
 ## 1. Phyrion 氏の証明の枠組み
 
@@ -217,26 +218,46 @@ $`D = 1`$ とする。鍵は $`(\rho_1, \rho_0)`$ の順に書く。
 
 本物の辺だけで成り立った 421 個は、weak の規則が公式と同じ値を出す 421 個と数が一致する。
 
-### 5.2 これからすること
+### 5.2 済んだこと：分類を仮定にした整礎性
 
-1. 分類を仮定にした整礎性の定理を示す。
-   - 表現：狭義増加のラベルで、$`\mathcal E_D(M(s))`$ の原子がすべて成り立つもの。
-   - 最初の表現：`initial_finite_graph`。
-   - 降下：`classifiedB` の真から `Splice.iterated_reservoirs` の仮定を作る。
-   - 帰納法：`DynamicsRepresentationRank.lean` と同じ。
-2. 分類そのものの証明（§6）。
+[OmegaY/Official/Descent.lean](../OmegaY/Official/Descent.lean)（名前空間 `OmegaY.Official.Descent`）で、次を証明した。`sorry` は無く、公理は `propext`、`Classical.choice`、`Quot.sound` だけである。
+
+| Lean の名前 | 内容 |
+|---|---|
+| `Rep D s` | 表現：狭義増加のラベル $`f`$（$`\omega_1`$ 未満）で、$`\mathcal E_D(M(s))`$ の原子がすべて成り立つもの |
+| `rep_exists` | どの列にも表現がある（閉じた点、`initial_finite_graph`） |
+| `descent_delete` | 末項を消す展開の降下 |
+| `initial_state`、`block_covered`、`block_keys`、`block_class` | 判定の真から、`Splice.iterated_reservoirs` の 4 つの仮定を作る |
+| `descent_splice` | 区画を足す展開の降下 |
+| `descent` | `classifiedB s n D = true` なら、$`s`$ の表現から $`s[n]`$ の表現で、ラベルがどれも $`f(x_0)`$ より小さいものが作れる |
+| `Step` | `Step t s`：$`s`$ は空でなく、ある $`n`$ で `Official.expand s n = .ok t` |
+| `ClassificationHolds` | すべての $`s, n`$ と、$`M(s)`$ の次数の上界 $`D`$ について `classifiedB s n D = true` |
+| `wellFounded_of_classification` | `ClassificationHolds → WellFounded Step` |
+
+整礎性の定理は、合法でない列も含むすべての有限の列について述べている。展開が失敗する列からは `Step` が無い。
+
+### 5.3 これからすること
+
+- 分類の補題 `ClassificationHolds` の証明（§6）。
 
 ## 6. 未解決の補題
 
-次の主張を証明していない。
+Lean の形では、残る主張は次のひとつである（[OmegaY/Official/Descent.lean](../OmegaY/Official/Descent.lean)）。
 
-**分類の補題.** $`s`$ を合法な列、$`n \ge 0`$、$`D`$ を $`M(s)`$ と $`M(s[n])`$ の行の次数の上界とする。$`s[n]`$ の山 $`M(s[n])`$ の脚の原子のすべてが、$`\mathcal E_D(M(s))`$ と制御 $`a(t)`$ について §1.2 の分類（基、予備、継ぎ目のどれか）を満たす。
+```lean
+def ClassificationHolds : Prop :=
+  ∀ (s : List Nat) (n D : Nat), DegreeOK s D → classifiedB s n D = true
+```
 
-加えて、降下を繰り返すには次も要る。
+`DegreeOK s D` は「$`M(s)`$ の行の次数がどれも $`D`$ 以下」である。`classifiedB s n D`（[OmegaY/Official/Reserve.lean](../OmegaY/Official/Reserve.lean)）は、展開 $`s[n]`$ が成功したとき、次のすべてを確かめる。展開が失敗したときは真である。
 
-**次元の保存.** $`M(s[n])`$ の行の次数は、$`M(s)`$ の行の次数以下である（01-feasibility の I1。数値では成り立つ）。
+1. **出力の山.** $`s[n]`$ の正準の山 $`M(s[n])`$ が作れる。
+2. **次元の保存.** $`M(s[n])`$ の行の次数はどれも $`D`$ 以下である（01-feasibility の I1）。
+3. **原子の形.** 両方の山の脚の原子は、$`p \lt c \lt`$ 幅、鍵の長さ $`D+1`$、鍵の列が $`p`$ 以下を満たす。
+4. **展開の形.** 末項が 1 か $`n = 0`$ なら、$`s[n]`$ は $`s`$ より 1 項短い。そうでなければ、根の列 $`c_r`$ は末列 $`x_0`$ より左にあり、$`s[n]`$ の長さは $`x_0 + nw`$ である。
+5. **分類.** $`M(s[n])`$ の脚の原子のすべてが、$`\mathcal E_D(M(s))`$ と制御 $`a(t)`$ について §1.2 の分類（基、予備、継ぎ目のどれか）を満たす。
 
-この 2 つから整礎性が出る、というのが §5 の 2 の定理である。分類の補題は、公式の展開の規則（03-official-rule §2）の場合分けに沿って示すことになる。Phyrion 氏の weak の証明で同じ役目を果たした部分は約 8 万行である。規模はそれに近いと見込む（推測）。
+3 は脚の原子の定義からすぐ出る見込みである。1、2、4 は公式の展開の規則についての性質で、weak の規則では Phyrion 氏が同じ種類の定理を証明している（`ActualCanonicalReconstruction`、`SupportedDimension`）。中心は 5 で、公式の展開の規則（03-official-rule §2）の場合分けに沿って示すことになる。Phyrion 氏の weak の証明で同じ役目を果たした部分は約 8 万行である。規模はそれに近いと見込む（推測）。
 
 ## 7. 限界
 
