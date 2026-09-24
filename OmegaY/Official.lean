@@ -19,6 +19,12 @@ import OmegaY.Official.Classification.Proofs.ChainCorrLegLeftRoutes
 import OmegaY.Official.Classification.Proofs.ChainCorrLegLeftJump
 import OmegaY.Official.Recon.JumpLawLowerLeft
 import OmegaY.Official.Recon.JumpLawLowerLeftDone
+import OmegaY.Official.Classification.Proofs.CopyShapeFinal
+import OmegaY.Official.Classification.Proofs.CopyShapeMAFalse
+import OmegaY.Official.Classification.Proofs.LegRowMatchInnerMain
+import OmegaY.Official.Classification.Proofs.LowerChainMain
+import OmegaY.Official.Recon.LowerChainRecon
+import OmegaY.Official.Recon.LowerChainCross
 import OmegaY.Official.Recon.ParentBelowLowerProfile
 import OmegaY.Official.Recon.ParentBelowLowerCore
 import OmegaY.Official.Recon.ParentBelowLowerCols
