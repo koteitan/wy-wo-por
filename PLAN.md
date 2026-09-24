@@ -4,8 +4,9 @@
 
 作業は依存の順に進める。葉が仮定にしてよいのは、証明済みの命題か、値の大きい列で真と確かめ済みで文面が決まった命題だけ（[notes/05-large-value-audit.md](notes/05-large-value-audit.md)）。段 A（土台と道筋）は済んだ。
 
-- 段 C：最後に残る命題（文面は決まっている。互いに独立）
-  - 🤖 継ぎ目の残り：`CutParentNT`（`BoundaryChain` はここから出る）、`StepRootTop`（`TopStepLoRoot` は `CutParentNT` とこれから出る）（`Seam*.lean`）
-  - 🤖 道筋の直し：`TopStart` は偽（`TopStartLoRight` の反例 `(1,20,15,23,3,10,28,22)[1]`、`TopStartLoRoot` の反例 `(1,13,29,4,18,25,15)[1]`）。plain で `pa` が `o` と同じ行の場合を弱めた `TopStart'` に替え、`TopStart` を使う帰着（`KeyLeRest` の側と親の鎖の側）を作り直す
-  - 🤖 親の鎖の plain と clean の残り：`SeamStep`、`SeamStart`、`CopyCountLe`（`RootPass IsPlain`、`LexImg` はここから出る。`RPL*.lean` は未追跡で、`TopStart'` が決まってから取り込む）
-  - 組み立ての差し替え：`FinalAssembly.lean`（未追跡）の `wellFounded_of_stageC` は仮定に偽の `TopStartLoRoot`、`TopStartLoRight` を含む。`TopStart'` が決まったら、それに差し替えて組み立て直す
+- 段 D（残りの命題。文面は決まっている）
+  - 🤖 継ぎ目：`CutParentNT`（`BoundaryChain` はここから出る）、`StepRootTop`（`TopStepLoRoot` は `CutParentNT` とこれから出る）（`Seam*.lean`）
+  - 🤖 親の鎖の plain と clean：`SeamStep`、`SeamStart`、`CopyCountLe`（`RootPass IsPlain`、`LexImg` はここから出る。`RPL*.lean` は未追跡）
+  - `TopStart'` の残り：`TopStartLoRootW`、`StartRootTopUp`、`TopStartPaOUp`（または `PaONoGap`）、`TopStartCutRight`（`TopStartFixParts.lean`）
+  - `CrossLexFor IsUpper`：古い帰着（`CopyQLower`、`InnerHolds`）は偽（反例 `(1,21,5,20,30,23,20)[1]`）。新しい帰着を作る
+- 組み立て：`wellFounded_of_stageC'`（`TopStartFixAssembly.lean`）の仮定は、上の命題と `TopStepLoRoot`、`BoundaryChain`、`CutJumpRootRow`、`CutRunTop`（証明済み）など
