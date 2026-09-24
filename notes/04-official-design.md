@@ -283,6 +283,7 @@ def ClassificationHolds : Prop :=
     - `ParentBelowHolds` と `LowerParentBelowHolds` を無条件で証明した（`Recon/PBStageB*.lean`）。`Profile7` の `CutOrder`、`CutLeg`、`Lift` を証明した。`Boundary` は偽である。根の列が 0 のとき、根の列の（作られない）写しで `leftColumn` が失敗する（最小の例 $`(1,3)[1]`$、`not_boundary_of_check`。`#guard` による計算）。根の列 1 以上の `BoundaryPos` を証明し、`Boundary` を使っていた 1 か所を置き換えた。
     - `StartRelNT`、`StartRootNT` を無条件で証明し、`NonTopStep` を再構成から出した（`NonTop*.lean`）。
     - `CutStartCopyNT` を無条件で証明し、`StepCut`、`CutJump`、`CutStartRootNT` を `BoundaryChain`、`CutJumpRootRow`、`CutRunTop` に帰着した（`Pkg3*.lean`）。
+    - 親の鎖の plain と clean：`EmitBelow`、`CleanFirst`、`PairAbove`、`PairOld`、`RootPass IsClean` を証明した（`Recon/Pk4*.lean`）。`CrossLexFor IsPlain` は `TopStep`、`TopStart`、`RootPass IsPlain`、`LexImg IsPlain` から、`CrossLexFor IsClean` は `TopStep`、`TopStart`、`LexImg IsClean` から出る。
     - `TopStep`、`TopStart` を、継ぎ目の 3 つの場合 `TopStepLoRoot`、`TopStartLoRoot`、`TopStartLoRight` に帰着した（`TopChain*.lean`）。
   - **`LiftLegRight`、`LegRowMatchInner`、`StartJump`、`LowerPairsLeft` は無条件で証明した**（2026-09-24、`Proofs/LiftLegRightProof.lean`、`Recon/JumpLawLowerLeftDone.lean`）。偽の `CopyOrder` の代わりに、2 つの列で上がるかどうかが一致すること（`ascAgree`）を使う。行の法則に残る仮定は `LowerRowsCopy` と `LowerRowsBoundary` だけになった（`jumpLawHolds_of_lowerRowsCases`）。
   - `CrossLexFor IsUpper`（`SeamLastPosHolds`、`InnerHolds`）は、土台の `Emitted` と、写した列の下の部分の鎖の対応 `CopyQLower`、`CopyStepLow` から出る（`Recon/CrossUpperSim*.lean` の `crossLexFor_upper_of_low`）。上の節点の行が τ 以上の場合は証明した。
