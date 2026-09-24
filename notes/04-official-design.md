@@ -281,6 +281,9 @@ def ClassificationHolds : Prop :=
     - `KeyLeRest` の道筋を作り直した（`LowerChain*.lean`）。鎖の対応を、一番上の写しの 1 歩 `TopStep` と出発 `TopStart` の 1 組にまとめ、親の鎖の側（`CopyStepLow`、`CopyQLower`、`CrossLexFor` の plain・clean・upper）と `KeyLeRest` の側の両方で使う。関係 `Rel = CopyNode ∨ TopNode` で、元の `bound_of_sim` がそのまま使え、skip は要らない。`KeyLeRest` は `TopStep`、`TopStart`、`NonTopStep`、`StartRelNT`、`StartRootNT`、`StepCut`、`CutJump`、`CutStartCopyNT`、`CutStartRootNT` から出る（`keyLeRest_of_lower_main`）。どれも値の大きい列を含めて失敗 0 である。「region の節点ではいつも一番上の写し」は偽だった。
   - **段 B（2026-09-24）.** 互いに独立な 6 つのパッケージを並べて進めた。
     - 行の法則の jump の部分 `JumpLawHolds` を無条件で証明した（`Recon/LRC*.lean` の `jumpLawHolds`）。残っていた `LowerRowsCopy`（脚が同じブロックの写し）と `LowerRowsBoundary`（脚が境目の列）を示した。写しの場合は、Y の項目の木が λ への道にそって X の木を真似ること、境目の場合は、境目の列の頂上の高さが $`h_\kappa + (h_\kappa - h_\rho) \cdot i`$ であることを使う。
+  - **段 C（2026-09-24）.**
+    - 共有の `TopStart` は偽である（`TopStartLoRightFalse.lean`、`#guard` による計算）。脚が `c_r` より右の場合の反例は $`(1,20,15,23,3,10,28,22)[1]`$、脚が `c_r` の場合の反例は $`(1,13,29,4,18,25,15)[1]`$。どちらも plain の出所で、`pa` が `o` と同じ行にある。o は根の頂上と同じ行にあり、その行で脚の列だけが上がる判定を通るので、`pa` の一番上の写しは clean の写しの上のすき間の写しになる。目標の命題（`KeyLeRest`、親の鎖）はこの入力でも成り立つ。弱めた `TopStart'` への道筋の直しを進めている。
+    - 継ぎ目（`Proofs/Seam*.lean`）：`BoundaryChain` は `CutParentNT` から、`TopStepLoRoot` は `CutParentNT` と `StepRootTop` から出る。どちらの命題も値 40 以下の列で失敗 0。`StartRootTop` は偽（`TopStartLoRoot` と同じ反例）。
     - すき間の写しの行 `CutJumpRootRow`、`CutRunTop` を無条件で証明した（`Proofs/P3T*.lean`）。パッケージ 3 に残るのは `TopStep`、`NonTopStep`、`BoundaryChain` だけ（`package3_of`）。
     - `ParentBelowHolds` と `LowerParentBelowHolds` を無条件で証明した（`Recon/PBStageB*.lean`）。`Profile7` の `CutOrder`、`CutLeg`、`Lift` を証明した。`Boundary` は偽である。根の列が 0 のとき、根の列の（作られない）写しで `leftColumn` が失敗する（最小の例 $`(1,3)[1]`$、`not_boundary_of_check`。`#guard` による計算）。根の列 1 以上の `BoundaryPos` を証明し、`Boundary` を使っていた 1 か所を置き換えた。
     - `StartRelNT`、`StartRootNT` を無条件で証明し、`NonTopStep` を再構成から出した（`NonTop*.lean`）。
