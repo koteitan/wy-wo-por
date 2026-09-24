@@ -8,4 +8,4 @@
   - 🤖 継ぎ目（列 `x_0` の写しと根の列 `c_r`）：`TopStepLoRoot`、`BoundaryChain`（`TopStartLoRoot` は偽）
   - 🤖 道筋の直し：`TopStart` は偽（`TopStartLoRight` の反例 `(1,20,15,23,3,10,28,22)[1]`、`TopStartLoRoot` の反例 `(1,13,29,4,18,25,15)[1]`）。plain で `pa` が `o` と同じ行の場合を弱めた `TopStart'` に替え、`TopStart` を使う帰着（`KeyLeRest` の側と親の鎖の側）を作り直す
   - 🤖 親の鎖の plain と clean：`RootPass IsPlain`、`LexImg IsPlain`、`LexImg IsClean`
-  - 🤖 検証：組み立て `wellFounded_of_stageC`（段 C の 9 つの命題から `WellFounded Step`、`FinalAssembly.lean`）。仮定のうち `TopStartLoRoot`、`TopStartLoRight` は偽なので、`TopStart'` が決まったら差し替える
+  - 組み立ての差し替え：`FinalAssembly.lean`（未追跡）の `wellFounded_of_stageC` は仮定に偽の `TopStartLoRoot`、`TopStartLoRight` を含む。`TopStart'` が決まったら、それに差し替えて組み立て直す
