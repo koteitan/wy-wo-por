@@ -7,11 +7,10 @@
 - 段 A：土台と道筋、それに依存しない葉
   - 🤖 写した列の形：`LowerPB.Emitted`、`CopyEmitted`、`CopyFirst`、MH と、偽の MA・`CopyOrder`・`NonCutOrder`・`CutBetween` に代わる真の命題の文面を決めて証明する（`CopyShape*.lean`）
   - 🤖 `KeyLeRest` の道筋を作り直す：偽の `StepInner`、`StartCopy` を弱い形 `StepInnerSkip`、`StartCopySkip` に置き換える。写した列の下の部分の鎖の対応を 1 組の補題にまとめ、`KeyLeRest` の側と親の鎖の側（`CopyQLower`、`CopyStepLow`、`CrossLexPos`）の両方で使う
-  - 🤖 `LowerPairsLeft`（脚が `c_r` より左の組の jump の法則。使うのは証明済みの `LiftLegRight` だけ）
-  - 🤖 検証：`LiftLegRight`、`LegRowMatchInner`、`StartJump` の証明（`LiftLegRightProof.lean`、`LegRowMatchInner*.lean`）
+  - 取り込み待ち：`LegRowMatchInner`、`StartJump` の証明（検証済み。土台の `CopyShapeNoMA`、`CopyShapeMH` と一緒に commit する）
   - 🤖 検証：`SeamLastPosHolds`、`InnerHolds` の帰着（`CrossUpperSim*.lean`）
 - 段 B：写した列の形が決まってから
-  - 行の法則の `LowerRowsCopy` と `LowerRowsBoundary`
+  - 行の法則の残り `LowerRowsCopy` と `LowerRowsBoundary`（`LowerPairsLeft` は証明済み、`jumpLawHolds_of_lowerRowsCases`）
   - `LowerParentBelowHolds`：`caseLower` に脚が `ℓ < c_r` の場合を足し、`Profile7` の偽の 2 つを真の命題に替える（`ParentBelowLower*.lean`）
 - 段 B：`KeyLeRest` の新しい道筋と鎖の補題が決まってから
   - 親の鎖：`CrossLexPos IsPlain`、`IsClean`、`CopyQLower`、`CopyStepLow`
