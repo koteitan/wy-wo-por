@@ -7,6 +7,6 @@
 - 段 D（残りの命題。文面は決まっている）
   - 🤖 継ぎ目：`CutParentNT`（`BoundaryChain` はここから出る）、`StepRootTop`（`TopStepLoRoot` は `CutParentNT` とこれから出る）（`Seam*.lean`）
   - 🤖 親の鎖の plain と clean：`SeamStep`、`SeamStart`、`CopyCountLe`（`RootPass IsPlain`、`LexImg` はここから出る。`RPL*.lean` は未追跡）
-  - `TopStart'` の残り：`TopStartLoRootW`、`StartRootTopUp`、`TopStartPaOUp`（または `PaONoGap`）、`TopStartCutRight`（`TopStartFixParts.lean`）
-  - `CrossLexFor IsUpper`：古い帰着（`CopyQLower`、`InnerHolds`）は偽（反例 `(1,21,5,20,30,23,20)[1]`）。新しい帰着を作る
+  - 🤖 `TopStart'` の残り：`TopStartLoRootW`、`StartRootTopUp`、`TopStartPaOUp`（または `PaONoGap`）、`TopStartCutRight`（`TopStartFixParts.lean`）
+  - 🤖 `CrossLexFor IsUpper`：古い帰着（`CopyQLower`、`InnerHolds`）は偽（反例 `(1,21,5,20,30,23,20)[1]`）。新しい帰着を作る
 - 組み立て：`wellFounded_of_stageC'`（`TopStartFixAssembly.lean`）の仮定は、上の命題と `TopStepLoRoot`、`BoundaryChain`、`CutJumpRootRow`、`CutRunTop`（証明済み）など
