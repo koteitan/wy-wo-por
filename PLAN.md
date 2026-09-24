@@ -6,7 +6,7 @@
 
 - 段 B（作業中）
   - 🤖 検証：行の法則 `LowerRowsCopy`、`LowerRowsBoundary` は証明した。これで `JumpLawHolds` は仮定なしで成り立つ（`LRC*.lean`）
-  - 🤖 `LowerParentBelowHolds`：`caseLower` に脚が `ℓ < c_r` の場合を足し、`Profile7` の残りを証明する
+  - 🤖 検証：`LowerParentBelowHolds` と `ParentBelowHolds` は仮定なしで証明した。`Profile7` の `Boundary` は偽（根の列 0、`(1,3)[1]`）で、根の列 1 以上の `BoundaryPos` に置き換えた（`PBStageB*.lean`）
   - 🤖 検証：親の鎖の plain と clean（`EmitBelow`、`CleanFirst`、`PairAbove`、`PairOld`、`RootPass IsClean` は証明した、`Pk4*.lean`）
   - 取り込み待ち（検証済み）
     - `StartRelNT`、`StartRootNT`、`NonTopStep`（再構成から）（`NonTop*.lean`）
