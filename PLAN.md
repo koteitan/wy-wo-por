@@ -6,7 +6,6 @@
 
 - 段 B（作業中）
   - 🤖 検証：行の法則 `LowerRowsCopy`、`LowerRowsBoundary` は証明した。これで `JumpLawHolds` は仮定なしで成り立つ（`LRC*.lean`）
-  - 🤖 検証：親の鎖の plain と clean（`EmitBelow`、`CleanFirst`、`PairAbove`、`PairOld`、`RootPass IsClean` は証明した、`Pk4*.lean`）
 - 段 C：段 B の後に残る命題（段 B が終わってから組む）
   - 鎖の対応の残り：`TopStepLoRoot`、`TopStartLoRoot`、`TopStartLoRight`（列 `x_0` と `c_r` の継ぎ目、同じ行のすき間の写し。`LowerRowsCopy`、`LowerRowsBoundary` の仮定は外れる）
   - すき間の写しの残り：`BoundaryChain`、`CutJumpRootRow`、`CutRunTop`
