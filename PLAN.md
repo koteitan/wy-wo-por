@@ -6,7 +6,8 @@
 
 - 段 C：最後に残る命題（文面は決まっている。互いに独立）
   - 🤖 継ぎ目（列 `x_0` の写しと根の列 `c_r`）：`TopStepLoRoot`、`TopStartLoRoot`、`BoundaryChain`
-  - 🤖 `TopStartLoRight`（同じ行のすき間の写し）
+  - 🤖 検証：`TopStartLoRight` は偽、したがって共有の `TopStart` も偽（反例 `(1,20,15,23,3,10,28,22)[1]`、`TopStartLoRightFalse.lean`）
+  - 🤖 道筋の直し：`TopStart` を、plain で `pa` が `o` と同じ行の場合だけ弱めた `TopStart'`（`Rel` など）に替え、`TopStart` を使う帰着（`KeyLeRest` の側と親の鎖の側）を作り直す
   - 🤖 すき間の写しの行：`CutJumpRootRow`、`CutRunTop`
   - 🤖 親の鎖の plain と clean：`RootPass IsPlain`、`LexImg IsPlain`、`LexImg IsClean`
-  - 🤖 組み立て：段 C の命題だけを仮定にした `WellFounded Step` の定理を 1 本にまとめる
+  - 🤖 組み立て：段 C の命題だけを仮定にした `WellFounded Step` の定理を 1 本にまとめる（`TopStart` の直しが決まったら、その仮定を差し替える）
