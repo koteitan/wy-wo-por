@@ -7,6 +7,6 @@
 - 段 C：最後に残る命題（文面は決まっている。互いに独立）
   - 🤖 継ぎ目（列 `x_0` の写しと根の列 `c_r`）：`TopStepLoRoot`、`BoundaryChain`（`TopStartLoRoot` は偽）
   - 🤖 道筋の直し：`TopStart` は偽（`TopStartLoRight` の反例 `(1,20,15,23,3,10,28,22)[1]`、`TopStartLoRoot` の反例 `(1,13,29,4,18,25,15)[1]`）。plain で `pa` が `o` と同じ行の場合を弱めた `TopStart'` に替え、`TopStart` を使う帰着（`KeyLeRest` の側と親の鎖の側）を作り直す
-  - 🤖 すき間の写しの行：`CutJumpRootRow`、`CutRunTop`
+  - 🤖 検証：すき間の写しの行 `CutJumpRootRow`、`CutRunTop` は仮定なしで証明した（`P3T*.lean`）
   - 🤖 親の鎖の plain と clean：`RootPass IsPlain`、`LexImg IsPlain`、`LexImg IsClean`
-  - 🤖 組み立て：段 C の命題だけを仮定にした `WellFounded Step` の定理を 1 本にまとめる（`TopStart` の直しが決まったら、その仮定を差し替える）
+  - 🤖 検証：組み立て `wellFounded_of_stageC`（段 C の 9 つの命題から `WellFounded Step`、`FinalAssembly.lean`）。仮定のうち `TopStartLoRoot`、`TopStartLoRight` は偽なので、`TopStart'` が決まったら差し替える
