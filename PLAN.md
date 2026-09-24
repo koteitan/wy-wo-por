@@ -8,12 +8,11 @@
   - 🤖 写した列の形：`LowerPB.Emitted`、`CopyEmitted`、`CopyFirst`、MH と、偽の MA・`CopyOrder`・`NonCutOrder`・`CutBetween` に代わる真の命題の文面を決めて証明する（`CopyShape*.lean`）
   - 🤖 `KeyLeRest` の道筋を作り直す：偽の `StepInner`、`StartCopy` を弱い形 `StepInnerSkip`、`StartCopySkip` に置き換える。写した列の下の部分の鎖の対応を 1 組の補題にまとめ、`KeyLeRest` の側と親の鎖の側（`CopyQLower`、`CopyStepLow`、`CrossLexPos`）の両方で使う
   - 取り込み待ち：`LegRowMatchInner`、`StartJump` の証明（検証済み。土台の `CopyShapeNoMA`、`CopyShapeMH` と一緒に commit する）
-  - 🤖 検証：`SeamLastPosHolds`、`InnerHolds` の帰着（`CrossUpperSim*.lean`）
 - 段 B：写した列の形が決まってから
   - 行の法則の残り `LowerRowsCopy` と `LowerRowsBoundary`（`LowerPairsLeft` は証明済み、`jumpLawHolds_of_lowerRowsCases`）
   - `LowerParentBelowHolds`：`caseLower` に脚が `ℓ < c_r` の場合を足し、`Profile7` の偽の 2 つを真の命題に替える（`ParentBelowLower*.lean`）
 - 段 B：`KeyLeRest` の新しい道筋と鎖の補題が決まってから
-  - 親の鎖：`CrossLexPos IsPlain`、`IsClean`、`CopyQLower`、`CopyStepLow`
+  - 親の鎖：`CrossLexPos IsPlain`、`IsClean`、`CopyQLower`、`CopyStepLow`（`CrossLexFor IsUpper` は `Emitted`、`CopyQLower`、`CopyStepLow` から出る。`crossLexFor_upper_of_low`）
   - `StepInner` の部品：`LegOriginReach` と `LegGapTop` の代わり、`ViaRoot`、`LookupInner`、`LookupRoot`
   - `StartCopy`、`StartRoot` の部品：`BoundaryStepLower`、`BoundaryCutChain`、`PaLookup`、`X0Reach`、`GapTop` の代わり
   - すき間の 2 つの領域の部品：`CutRunLow`、`CutRunHigh`、`CutOriginReach`、`CutJumpTop`、`CutBump`、`CutLegLookup`
