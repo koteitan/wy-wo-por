@@ -11,9 +11,11 @@ projects, which are licensed under the Apache License, Version 2.0 (see LICENSE)
   https://github.com/Phyrion1343/1Y-Well-Ordering-Lean
   revision 6533b2975f3cafb3582dc8f8127e9ea7144d7e69
 
-OmegaY/ and OmegaY.lean are adapted from the first project.  Each file starts
-with a header naming its original path and revision and stating what was
-changed.  The changes in the code are:
+OmegaY/ (except OmegaY/Official/) and OmegaY.lean are adapted from the first
+project.  Each of these files starts with a header naming its original path and
+revision and stating what was changed.  OmegaY/Official/ and OmegaY/Official.lean
+(the official omega-Y expansion and the proof that it is well founded) are
+written for this repository; they use the adapted modules through imports only.  The changes in the code are:
   * the lemma `YesMetaZFC.BMS.transGen_head` is replaced by
     `Por.BMS.transGen_head` of this repository (same statement), in three files;
   * the semantic layer is replaced.  OmegaY/Reflection/Interface.lean keeps the
