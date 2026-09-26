@@ -291,6 +291,12 @@ def ClassificationHolds : Prop :=
     - `CutStartCopyNT` を無条件で証明し、`StepCut`、`CutJump`、`CutStartRootNT` を `BoundaryChain`、`CutJumpRootRow`、`CutRunTop` に帰着した（`Pkg3*.lean`）。
     - 親の鎖の plain と clean：`EmitBelow`、`CleanFirst`、`PairAbove`、`PairOld`、`RootPass IsClean` を証明した（`Recon/Pk4*.lean`）。`CrossLexFor IsPlain` は `TopStep`、`TopStart`、`RootPass IsPlain`、`LexImg IsPlain` から、`CrossLexFor IsClean` は `TopStep`、`TopStart`、`LexImg IsClean` から出る。
     - `TopStep`、`TopStart` を、継ぎ目の 3 つの場合 `TopStepLoRoot`、`TopStartLoRoot`、`TopStartLoRight` に帰着した（`TopChain*.lean`）。
+  - **段 D（2026-09-26）.**
+    - 継ぎ目の `CutParentNT` と `StepRootTop` を無条件で証明した（`Proofs/CPN*.lean`、`Proofs/SRTMain.lean`、`Recon/SRTTree.lean`）。ここから `BoundaryChain`、`StepCutNT`、`TopStepLoRoot` が出る。
+    - 親の鎖：`CopyCountLe` を無条件で証明した（`Recon/CCL*.lean`）。`SeamStep`、`SeamStart` は `CutParentNT` から出る（`Recon/SeamPass*.lean`、`Recon/RPL*.lean`）。`LexImg IsPlain`、`LexImg IsClean` は無条件、`RootPass IsPlain` は `TopStep`、`TopStart'`、`CutParentNT` から出る。
+    - `TopStart'` の部品：`StartRootTopUp`（`BiTopLow`）と `TopStartCutRight`（`CutTopGap`）を無条件で証明した。`TopStartLoRootW` は `CutParentNT` から出る。`TopStartPaOUp` は `RootValueIn` に帰着した（`Proofs/TSQ*.lean`）。
+    - `CrossLexFor IsUpper` の新しい帰着：`PaONoGapHi`、`CutRightTopHi`、`SeamChainX`、`QRootRowGe` から出る（`Recon/CrossUpperW*.lean`、`Recon/CrossUpperQ*.lean`）。1 歩だけの形の `SeamChainX` は偽（反例 $`(1,3,9,11,16,8)[1]`$）で、使っていない。
+    - 数値の試験は、この段から 1 回 60 秒以内・小さい入力だけにした。
   - **`LiftLegRight`、`LegRowMatchInner`、`StartJump`、`LowerPairsLeft` は無条件で証明した**（2026-09-24、`Proofs/LiftLegRightProof.lean`、`Recon/JumpLawLowerLeftDone.lean`）。偽の `CopyOrder` の代わりに、2 つの列で上がるかどうかが一致すること（`ascAgree`）を使う。行の法則に残る仮定は `LowerRowsCopy` と `LowerRowsBoundary` だけになった（`jumpLawHolds_of_lowerRowsCases`）。
   - `CrossLexFor IsUpper`（`SeamLastPosHolds`、`InnerHolds`）は、土台の `Emitted` と、写した列の下の部分の鎖の対応 `CopyQLower`、`CopyStepLow` から出る（`Recon/CrossUpperSim*.lean` の `crossLexFor_upper_of_low`）。上の節点の行が τ 以上の場合は証明した。
   - **偽の `LegBelowTop` を使わない道筋（`ChainCorrLegLeft*.lean`、`Recon/JumpLawLowerLeft.lean`）.** `StartLeg` を、脚が `c_r` 以上の場合と、脚が `c_r` より左で出所が plain の場合に分けた（`startLeg_split`）。後者では行が動かず、親も同じである（`legLeft_same`）。これは元の山の事実 `LiftLegRight` から出る。`StartJump` は `LegRowMatchInner` から出る。行の法則は `LowerRowsCopy`、`LowerRowsBoundary`、`LowerPairsLeft` から出る（`jumpLawHolds_of_lowerCases_left`）。この 3 つと `LiftLegRight`、`LegRowMatchInner` は、値の大きい列でも失敗 0 である。ただし `KeyLeRest` の側の整礎性の定理（`wellFounded_of_lift_inner` など）は、まだ偽の `StepInner` と `StartCopy` を仮定している。

@@ -34,6 +34,11 @@ import OmegaY.Official.Classification.Proofs.SeamFinal
 import OmegaY.Official.Classification.Proofs.TopStartLoRightFalse
 import OmegaY.Official.Classification.Proofs.TopStartFixPaO
 import OmegaY.Official.Recon.TopStartFixAssembly
+import OmegaY.Official.Classification.Proofs.CPNMain
+import OmegaY.Official.Classification.Proofs.SRTMain
+import OmegaY.Official.Recon.CCLAssembly
+import OmegaY.Official.Classification.Proofs.TSQFinal
+import OmegaY.Official.Recon.CrossUpperQAssembly
 import OmegaY.Official.Classification.Proofs.NonTopRecon
 import OmegaY.Official.Classification.Proofs.NonTopMain
 import OmegaY.Official.Classification.Proofs.Pkg3Main
