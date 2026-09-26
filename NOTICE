@@ -1,0 +1,44 @@
+wy-wo-por
+
+This repository contains original work and code adapted from the following
+projects, which are licensed under the Apache License, Version 2.0 (see LICENSE):
+
+  Phyrion, omega-Y-Well-Ordering-Lean
+  https://github.com/Phyrion1343/omega-Y-Well-Ordering-Lean
+  revision 33c16a8ce8f7e01bb3794881f3ff9109474beaed
+
+  Phyrion, 1Y-Well-Ordering-Lean
+  https://github.com/Phyrion1343/1Y-Well-Ordering-Lean
+  revision 6533b2975f3cafb3582dc8f8127e9ea7144d7e69
+
+OmegaY/ and OmegaY.lean are adapted from the first project.  Each file starts
+with a header naming its original path and revision and stating what was
+changed.  The changes in the code are:
+  * the lemma `YesMetaZFC.BMS.transGen_head` is replaced by
+    `Por.BMS.transGen_head` of this repository (same statement), in three files;
+  * the semantic layer is replaced.  OmegaY/Reflection/Interface.lean keeps the
+    interface definitions of OmegaY/Reflection.lean unchanged.
+    OmegaY/Reflection.lean and OmegaY/Reflection/OrdinalSupply.lean keep the
+    statements the core calls (`R`, `key_weaken`, `finite_reflection`, `Label`,
+    `top`, `initial_finite_graph`) and prove them from the model in Por/;
+    OmegaY/Reflection/Skolem.lean and OmegaY/Reflection/Stability.lean are not
+    included;
+  * OmegaY/KeyReflection.lean imports OmegaY.Reflection instead of
+    OmegaY.Reflection.Stability, and OmegaY/Audit.lean also audits `Por`.
+
+Por/Formula.lean, Por/Relation.lean and Por/Supply.lean (the
+patterns-of-resemblance model) are written for this repository.  Por/Supply.lean
+adapts `Label`, `top`, `countable_iio_ordinal` and `countable_iio` from
+OmegaY/Reflection/OrdinalSupply.lean of the first project, and says so in its
+header.
+
+ZeroY/ (20 modules) is taken from koteitan/1y-wo-por
+(https://github.com/koteitan/1y-wo-por, Apache-2.0), which adapted it from
+`formalization/ZeroY` of the second project; each file keeps its header.  The
+imports and namespaces of the BMS layer are renamed to `Por.BMS`, and
+`ZeroY/BMS/AnyArray.lean` is not included.
+
+Por/BMS/ is taken from koteitan/1y-wo-por, where it was written for that
+repository by the same author.  No code from the snapshot of YesMetaZFC /
+BMS-Well-Ordering-Lean that the first project depends on, which carries no
+license, is copied or adapted here.
