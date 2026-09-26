@@ -291,6 +291,11 @@ def ClassificationHolds : Prop :=
     - `CutStartCopyNT` を無条件で証明し、`StepCut`、`CutJump`、`CutStartRootNT` を `BoundaryChain`、`CutJumpRootRow`、`CutRunTop` に帰着した（`Pkg3*.lean`）。
     - 親の鎖の plain と clean：`EmitBelow`、`CleanFirst`、`PairAbove`、`PairOld`、`RootPass IsClean` を証明した（`Recon/Pk4*.lean`）。`CrossLexFor IsPlain` は `TopStep`、`TopStart`、`RootPass IsPlain`、`LexImg IsPlain` から、`CrossLexFor IsClean` は `TopStep`、`TopStart`、`LexImg IsClean` から出る。
     - `TopStep`、`TopStart` を、継ぎ目の 3 つの場合 `TopStepLoRoot`、`TopStartLoRoot`、`TopStartLoRight` に帰着した（`TopChain*.lean`）。
+  - **段 E（2026-09-26）.**
+    - `SeamChainX`、`QRootRowGe` を無条件で証明した（`Recon/SCXMain.lean`）。`QRootSeam` も出る。`CutRightTopHi` を無条件で証明した（`Recon/CrossUpperQHiCut.lean`）。`TopStep` を無条件で証明した（`Recon/FinalStageE.lean` の `topStep_final`）。
+    - `RootValueIn` は偽である。反例は $`(1,4,18,56,18)`$（`TSQRootValueInFalse.lean`、`#guard` による計算）。`P(o)` の探索が `pa` と根 `g` を捨てて列 0 で止まり、o の上の節点が行 $`\omega^2`$ に跳ぶ。`TopStartPaOUp` と `TopStart'` の強い条項も、この入力で数値では偽。
+    - `PaONoGapHi` は偽である。反例は $`(1,21,5,20,59,20)[1]`$（`CrossUpperQHiFalse.lean`、`#guard` による計算）。`CopyQLowerW` も同じ入力で数値では偽で、内側の場合の `TopCopy` を弱める必要がある。
+    - 組み立て `wellFounded_of_stageE`（`FinalStageE.lean`）は、`RootValueIn`、`PaONoGapHi`、`CutRightTopHi`、`SeamChainX`、`QRootRowGe` だけを仮定にするが、2 つが偽なので中身が無い。目標の命題（ChainHolds、CrossChain、RowLaw、ParentBelow、KeyLeShift、CrossLex）は、2 つの反例の入力でも成り立つ。
   - **段 D（2026-09-26）.**
     - 継ぎ目の `CutParentNT` と `StepRootTop` を無条件で証明した（`Proofs/CPN*.lean`、`Proofs/SRTMain.lean`、`Recon/SRTTree.lean`）。ここから `BoundaryChain`、`StepCutNT`、`TopStepLoRoot` が出る。
     - 親の鎖：`CopyCountLe` を無条件で証明した（`Recon/CCL*.lean`）。`SeamStep`、`SeamStart` は `CutParentNT` から出る（`Recon/SeamPass*.lean`、`Recon/RPL*.lean`）。`LexImg IsPlain`、`LexImg IsClean` は無条件、`RootPass IsPlain` は `TopStep`、`TopStart'`、`CutParentNT` から出る。
