@@ -296,6 +296,11 @@ def ClassificationHolds : Prop :=
     - `RootValueIn` は偽である。反例は $`(1,4,18,56,18)`$（`TSQRootValueInFalse.lean`、`#guard` による計算）。`P(o)` の探索が `pa` と根 `g` を捨てて列 0 で止まり、o の上の節点が行 $`\omega^2`$ に跳ぶ。`TopStartPaOUp` と `TopStart'` の強い条項も、この入力で数値では偽。
     - `PaONoGapHi` は偽である。反例は $`(1,21,5,20,59,20)[1]`$（`CrossUpperQHiFalse.lean`、`#guard` による計算）。`CopyQLowerW` も同じ入力で数値では偽で、内側の場合の `TopCopy` を弱める必要がある。
     - 組み立て `wellFounded_of_stageE`（`FinalStageE.lean`）は、`RootValueIn`、`PaONoGapHi`、`CutRightTopHi`、`SeamChainX`、`QRootRowGe` だけを仮定にするが、2 つが偽なので中身が無い。目標の命題（ChainHolds、CrossChain、RowLaw、ParentBelow、KeyLeShift、CrossLex）は、2 つの反例の入力でも成り立つ。
+  - **段 F（2026-09-26）.** 開いた命題は無くなり、`WellFounded Descent.Step` を仮定なしで証明した（`Recon/FinalStageF.lean` の `wellFounded_step`、`no_infinite_expansion`）。
+    - `TopStart'` を弱めた `TopStart''` を無条件で証明した（`Proofs/TopStartW2.lean` の `topStart''_holds`）。強い条項の `c_r` より右の部分を `TopNode` から `Rel`（CopyNode ∨ TopNode）に弱めた（`StandQ`）。偽の `TopStartPaOUp` と `RootValueIn` は使わない。
+    - `TopStart''` の上で、`KeyLeRest`（`TopStartW2Key.lean` の `keyLeRest_pkg3''`）、`RootPass IsPlain`、`CrossLexFor IsPlain`、`CrossLexFor IsClean` を作り直した（`Recon/TopStartW2Recon.lean`、`Recon/TopStartW2NoEnd.lean`）。新しい部品 `NonTopPass`、`NoEndRight` は無条件で証明した。`QStand IsPlain` は数値では偽（反例 $`(1,4,18,56,18)[1]`$）で、stand-in の関係を `Cp ∨ NonTopCopy` に弱めた `QStandW` を使う。
+    - `CrossLexFor IsUpper` を作り直した（`Recon/CrossUpperN*.lean` の `crossLexFor_upper_final`）。偽の `CopyQLowerW` の代わりに、内側の場合の `TopCopy` を「top copy か、top でない copy」に弱めた `CopyQLowerN` を証明した。top でない出発は `NoEndRightHi`（鎖の終わりは `c_r` 以下）と `NonTopRootHi`（`c_r` の節点を R の鎖が通る）で扱う。どちらも無条件で証明した。偽の `PaONoGapHi` は使わない。
+    - `Recon/TopStartW2Final.lean` は、`CrossLexFor IsUpper` を仮定にした途中の組み立て（`wellFounded_of_stageF`）で、`FinalStageF.lean` が同じ組み立てを仮定なしで書き直した。
   - **段 D（2026-09-26）.**
     - 継ぎ目の `CutParentNT` と `StepRootTop` を無条件で証明した（`Proofs/CPN*.lean`、`Proofs/SRTMain.lean`、`Recon/SRTTree.lean`）。ここから `BoundaryChain`、`StepCutNT`、`TopStepLoRoot` が出る。
     - 親の鎖：`CopyCountLe` を無条件で証明した（`Recon/CCL*.lean`）。`SeamStep`、`SeamStart` は `CutParentNT` から出る（`Recon/SeamPass*.lean`、`Recon/RPL*.lean`）。`LexImg IsPlain`、`LexImg IsClean` は無条件、`RootPass IsPlain` は `TopStep`、`TopStart'`、`CutParentNT` から出る。

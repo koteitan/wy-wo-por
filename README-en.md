@@ -1,8 +1,8 @@
 [English](README-en.md) | [Japanese](README.md)
 
-# wy-wo-por: well-foundedness of the official ω-Y (work in progress)
+# wy-wo-por: well-foundedness of the official ω-Y
 
-This repository aims to prove in Lean 4 that expansion in the official ω-Y sequence system is well-founded.
+This repository proves in Lean 4 that expansion in the official ω-Y sequence system is well-founded.
 
 - The official ω-Y is defined by `expand` of Naruyoko's program [Study and Expand Sequence(仮)](https://naruyoko.github.io/StudyAndExpandSequence/) ([notes/00-survey.md](notes/00-survey.md), Japanese).
 - Weak-magma ω-Y, proved by Phyrion, is a sequence system distinct from the official ω-Y. Its re-proof by patterns of resemblance is [koteitan/wmwy-wo-por](https://github.com/koteitan/wmwy-wo-por).
@@ -13,4 +13,11 @@ This repository aims to prove in Lean 4 that expansion in the official ω-Y sequ
 
 ## Status
 
-Work in progress. Termination of the official ω-Y is not yet a theorem of this repository. What is proved is well-foundedness under two open lemmas: the reconstruction of the output mountain (`ReconstructionHolds`) and the classification of the leg atoms. The classification is reduced further to two statements (`ControlDominates`, `KeyLeRest`), and `ControlDominates` is proved, so two open statements remain (`BlockReconstruction`, `KeyLeRest`; `ControlProof.wellFounded_of_block_keys`). `BlockReconstruction` is reduced further to two statements on the new columns, the row law and the parent chain (`OmegaY/Official/Recon/`). `KeyLeRest` is reduced to seven region lemmas (`OmegaY/Official/Classification/Proofs/KeyRegions.lean`). The work is done on the branch `feature/official-expansion`.
+Well-foundedness of the official ω-Y expansion is proved with no hypothesis (v0.1.38).
+
+- Theorem: `OmegaY.Official.Recon.FinalStageF.wellFounded_step : WellFounded Descent.Step` in [OmegaY/Official/Recon/FinalStageF.lean](OmegaY/Official/Recon/FinalStageF.lean).
+  - `Descent.Step t s` says that s is nonempty and `expand s n = .ok t` for some n.
+  - Restated as `no_infinite_expansion`: from any sequence, expansion cannot go on forever.
+- `#print axioms` gives only `[propext, Classical.choice, Quot.sound]`. There is no `sorry`, no new axiom and no `native_decide`.
+- The hypotheses found false on the way, and how they were replaced, are in [notes/04-official-design.md](notes/04-official-design.md) §6.1 and [notes/06-final-assembly.md](notes/06-final-assembly.md) (Japanese).
+- The work was done on the branch `feature/official-expansion`.

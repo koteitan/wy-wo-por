@@ -1,8 +1,8 @@
 [English](README-en.md) | [Japanese](README.md)
 
-# wy-wo-por：公式の ω-Y の整礎性（作業中）
+# wy-wo-por：公式の ω-Y の整礎性
 
-公式の ω-Y 数列システムの展開が整礎であることを、Lean 4 で証明することを目指すリポジトリである。
+公式の ω-Y 数列システムの展開が整礎であることを、Lean 4 で証明したリポジトリである。
 
 - 公式の ω-Y の定義は、Naruyoko 氏のプログラム [Study and Expand Sequence(仮)](https://naruyoko.github.io/StudyAndExpandSequence/) の `expand` である（[notes/00-survey.md](notes/00-survey.md)）。
 - Phyrion 氏が証明した weak-magma ω-Y は、公式の ω-Y とは別の数列システムである。その patterns of resemblance による再証明は [koteitan/wmwy-wo-por](https://github.com/koteitan/wmwy-wo-por) にある。
@@ -13,4 +13,11 @@
 
 ## 状態
 
-作業中である。公式の ω-Y の停止性は、まだこのリポジトリの定理ではない。証明されているのは、未解決の 2 つの補題（出力の山の再構成 `ReconstructionHolds`、脚の原子の分類）を仮定にした整礎性である。分類は、さらに 2 つの命題（`ControlDominates`、`KeyLeRest`）に帰着し、`ControlDominates` は証明した。つまり、残る未解決の命題は 2 つ（`BlockReconstruction`、`KeyLeRest`）である（`ControlProof.wellFounded_of_block_keys`）。`BlockReconstruction` は、さらに新しい列についての 2 つの主張（行の法則、親の鎖）に帰着した（`OmegaY/Official/Recon/`）。`KeyLeRest` は 7 つの領域の補題に帰着した（`OmegaY/Official/Classification/Proofs/KeyRegions.lean`）。作業は branch `feature/official-expansion` で行う。
+公式の ω-Y の展開の整礎性を、仮定なしで証明した（v0.1.38）。
+
+- 定理：[OmegaY/Official/Recon/FinalStageF.lean](OmegaY/Official/Recon/FinalStageF.lean) の `OmegaY.Official.Recon.FinalStageF.wellFounded_step : WellFounded Descent.Step`
+  - `Descent.Step t s` は「s は空でなく、ある n で `expand s n = .ok t`」である。
+  - 言い換え：`no_infinite_expansion`。どの列から始めても、展開を無限に続けることはできない。
+- `#print axioms` は `[propext, Classical.choice, Quot.sound]` だけである。`sorry`、新しい公理、`native_decide` は無い。
+- 途中で偽と分かった仮定と、その直し方は [notes/04-official-design.md](notes/04-official-design.md) §6.1 と [notes/06-final-assembly.md](notes/06-final-assembly.md) にある。
+- 作業は branch `feature/official-expansion` で行った。
